@@ -54,22 +54,61 @@ namespace TestConsole
 
             #region Operator+, Operator-
 
-            var v1 = new Vector2D(1, 8);
-            var v2 = v1;
-            v1.X = 7;
-            v1.Y = -14;
+            //var v1 = new Vector2D(1, 8);
+            //var v2 = v1;
+            //v1.X = 7;
+            //v1.Y = -14;
 
-            var v3 = v1 + v2;
-            var v4 = v2 - v1;
+            //var v3 = v1 + v2;
+            //var v4 = v2 - v1;
 
-            var v5 = v4 + 7;
+            //var v5 = v4 + 7;
 
-            var v6 = -v5;
+            //var v6 = -v5;
 
             #endregion
 
+            #region Printer
 
+            Printer printer = new Printer();
+
+            printer.Print("Привет Мир!");
+
+            printer = new PrefixPrinter(">>>>>>> ");
+
+            printer.Print("Привет Мир!");
+
+            #endregion
             Console.ReadKey();
+        }
+    }
+
+    class Printer
+    {
+        //  Пустой конструктор
+        public Printer()
+        {
+
+        }
+        public virtual void Print(string str)
+        {
+            Console.WriteLine(str);
+        }
+    }
+
+    class PrefixPrinter : Printer
+    {
+        private string _Prefix;
+
+        //  Учимся использовать ЛЯМБДА ВЫРАЖЕНИЯ
+        public PrefixPrinter(string Prefix) => _Prefix = Prefix;
+
+        //  Переопределили ВИРТУАЛЬНЫЙ МЕТОД
+        public override void Print(string str)
+        {
+            //Console.WriteLine($"{_Prefix}{str}");
+            //  использовали метод базового класса.
+            base.Print(_Prefix + str);
         }
     }
 }
