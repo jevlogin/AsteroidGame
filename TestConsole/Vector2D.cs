@@ -24,5 +24,26 @@ namespace TestConsole
             this.Y = Y; //  потому что использовали автосвойство
         }
 
+        //  Оператор сложения векторов. Все намного проще, чем казалось на первый взгляд.
+        public static Vector2D operator +(Vector2D a, Vector2D b)
+        {
+            return new Vector2D(a.X + b.X, a.Y + b.Y);
+        }
+        //  Оператор разности векторов. Множественный курсор shift + alt + >, shift + alt + <
+        public static Vector2D operator -(Vector2D a, Vector2D b)
+        {
+            return new Vector2D(a.X - b.X, a.Y - b.Y);
+        }
+        //  Оператор сложения векторов и числа. 
+        public static Vector2D operator +(Vector2D a, double value)
+        {
+            return new Vector2D(a.X + value, a.Y + value);
+        }
+
+        public static Vector2D operator -(Vector2D a)
+        {
+            return new Vector2D(-a.X, -a.Y);
+        }
+
     }
 }
