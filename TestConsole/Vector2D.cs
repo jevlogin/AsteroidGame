@@ -24,6 +24,26 @@ namespace TestConsole
             this.Y = Y; //  потому что использовали автосвойство
         }
 
+        //  Переопределение стандартных методов
+        public override string ToString() => $"({X}:{Y})";
+        public override bool Equals(object obj)
+        {
+            if (obj is Vector2D)
+            {
+                return ((Vector2D)obj).X == X && ((Vector2D)obj).Y == Y;
+            }
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            var hash = X.GetHashCode();
+            unchecked
+            {
+                hash = (hash * 372) ^ Y.GetHashCode();
+            }
+            return hash;
+        }
+
         //  Оператор сложения векторов. Все намного проще, чем казалось на первый взгляд.
         public static Vector2D operator +(Vector2D a, Vector2D b)
         {

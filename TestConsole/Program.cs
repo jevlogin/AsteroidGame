@@ -39,13 +39,14 @@ namespace TestConsole
 
             #endregion
 
-            #region test space_ship and vector
+            #region test space_ship and Vector2D
 
             //var space_ship = new SpaceShip(new Vector2D(5, 7));
             //var space_ship2 = space_ship;
             //space_ship.Position = new Vector2D(150, -210);
 
             //var v1 = new Vector2D(1, 8);
+            //Console.WriteLine(v1);
             //var v2 = v1;
             //v1.X = 7;
             //v1.Y = -14;
@@ -70,21 +71,20 @@ namespace TestConsole
 
             #region Printer
 
-            Printer printer = new Printer();
+            //Printer printer = new Printer();
 
-            printer.Print("Привет Мир!");
+            //printer.Print("Привет Мир!");
 
-            printer = new PrefixPrinter(">>>>>>> ");
+            //printer = new PrefixPrinter(">>>>>>> ");
 
-            printer.Print("Привет Мир!");
+            //printer.Print("Привет Мир!");
 
-            printer = new DateTimeLogPrinter();
+            //printer = new DateTimeLogPrinter();
 
-            printer.Print("Привет Мир!");
+            //printer.Print("Привет Мир!");
 
-            printer = new FilePrinter("test.txt");
-            printer.Print("Ну здравствуй Питер.");
-
+            //printer = new FilePrinter("test.txt");
+            //printer.Print("Ну здравствуй Питер.");
 
             #endregion
             Console.ReadKey();
