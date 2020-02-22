@@ -21,6 +21,9 @@ namespace AsteroidGame
             form.Width = 800;
             form.Height = 600;
 
+            //  инициализировали метод Initialize() и передали форму.
+            Game.Initialize(form);
+
             Application.Run(form);
         }
     }
