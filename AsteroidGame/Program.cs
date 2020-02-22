@@ -24,6 +24,7 @@ namespace AsteroidGame
             form.Show();
             //  инициализировали метод Initialize() и передали форму.
             Game.Initialize(form);
+            Game.Load();
             Game.Draw();
 
             Application.Run(form);
