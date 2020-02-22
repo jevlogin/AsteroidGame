@@ -26,6 +26,7 @@ namespace TestConsole
                 g.SayYourName();
             }
 
+
             //gamer.SetName("Максим");
             //Console.WriteLine($"{gamer.GetName()}");
 
