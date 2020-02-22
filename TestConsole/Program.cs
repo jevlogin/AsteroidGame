@@ -78,6 +78,14 @@ namespace TestConsole
 
             printer.Print("Привет Мир!");
 
+            printer = new DateTimeLogPrinter();
+
+            printer.Print("Привет Мир!");
+
+            printer = new FilePrinter("test.txt");
+            printer.Print("Ну здравствуй Питер.");
+
+
             #endregion
             Console.ReadKey();
         }
@@ -109,6 +117,28 @@ namespace TestConsole
             //Console.WriteLine($"{_Prefix}{str}");
             //  использовали метод базового класса.
             base.Print(_Prefix + str);
+        }
+    }
+
+    class DateTimeLogPrinter : Printer
+    {
+        public override void Print(string str)
+        {
+            Console.Write(DateTime.Now);
+            Console.Write(" >> ");
+            base.Print(str);
+        }
+    }
+
+    class FilePrinter : Printer
+    {
+        private string _FileName;
+
+        public FilePrinter(string FileName) => _FileName = FileName;
+
+        public override void Print(string str)
+        {
+            System.IO.File.AppendAllText(_FileName, str);
         }
     }
 }
