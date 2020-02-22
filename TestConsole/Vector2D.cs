@@ -28,6 +28,7 @@ namespace TestConsole
         public override string ToString() => $"({X}:{Y})";
         public override bool Equals(object obj)
         {
+            //   is проверяет, является ли obj объектом указанного типа, в данном примере является ли obj объектом типа Vector2D
             if (obj is Vector2D)
             {
                 return ((Vector2D)obj).X == X && ((Vector2D)obj).Y == Y;
