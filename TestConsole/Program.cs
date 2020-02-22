@@ -26,6 +26,11 @@ namespace TestConsole
                 g.SayYourName();
             }
 
+            //gamer.SetName("Максим");
+            //Console.WriteLine($"{gamer.GetName()}");
+
+            gamer.Name = "Konstantin";
+            Console.WriteLine($"Игрок первый = {gamer.Name}");
 
             Console.ReadKey();
         }
@@ -36,12 +41,52 @@ namespace TestConsole
         private string _Name;
         private DateTime _DayOfBirth;
 
+
+        //  Это свойство.
+        public string Name
+        {
+            get
+            {
+                //return _Name ?? string.Empty                  //  А это не тернарный оператор )))
+                //return _Name == null ? string.Empty : _Name;  //  Тернарный оператор
+                
+                //  А это через стандартный if else
+                if (_Name == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return _Name;
+                }
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                _Name = value;
+            }
+        }
+
         public Gamer(string Name, DateTime DayOfBirth)
         {
             _Name = Name;
             _DayOfBirth = DayOfBirth;
 
         }
+
+        //public void SetName(string value)
+        //{
+        //    _Name = value;
+        //}
+        //public string GetName()
+        //{
+        //    return _Name;
+        //}
+
+
         public void SayYourName()
         {
             Console.WriteLine($"{_Name} {_DayOfBirth:dd:MM:yyyy HH:mm:ss}");
