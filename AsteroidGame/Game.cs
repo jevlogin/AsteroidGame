@@ -39,6 +39,7 @@ namespace AsteroidGame
 
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
+            //  Создаем таймер
             var timer = new Timer { Interval = 50 };
             timer.Tick += OnTimerTick;
             timer.Start();
