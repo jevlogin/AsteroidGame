@@ -12,8 +12,8 @@ namespace AsteroidGame
     {
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
 
-            //  Графический контекст и буфер, новые звери в моем понимании
-            //  обычная переменная с одним подчеркиванием, статические с двумя
+        //  Графический контекст и буфер, новые звери в моем понимании
+        //  обычная переменная с одним подчеркиванием, статические с двумя
         private static BufferedGraphicsContext __Context;
 
         public static Graphics Graphics { get; private set; }
@@ -39,6 +39,19 @@ namespace AsteroidGame
 
 
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
+
+        }
+
+        public static void Draw()
+        {
+            var g = __Buffer.Graphics;
+            g.Clear(Color.Black);
+
+            g.DrawRectangle(Pens.White, new Rectangle(50, 50, 200, 200));
+
+            g.FillEllipse(Brushes.Red, new Rectangle(100, 50, 70, 120));
+
+            __Buffer.Render();
         }
     }
 }
