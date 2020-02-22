@@ -10,16 +10,12 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            Gamer gamer = new Gamer();
-            gamer.Name = "JEVLOGIN";
-            gamer.DayOfBirth = new DateTime(1987, 1, 24, 0, 0, 0);
-
+            Gamer gamer = new Gamer("JEVLOGIN", new DateTime(1987, 1, 24, 0, 0, 0));
+           
             Gamer[] gamers = new Gamer[100];
             for (int i = 0; i < gamers.Length; i++)
             {
-                var g = new Gamer();
-                g.Name = $"Gamer {i + 1}";
-                g.DayOfBirth = DateTime.Now.Subtract(TimeSpan.FromDays(365 * (i + 18)));
+                var g = new Gamer($"Gamer {i + 1}", DateTime.Now.Subtract(TimeSpan.FromDays(365 * (i + 18))));
                 gamers[i] = g;
             }
 
@@ -37,12 +33,18 @@ namespace TestConsole
 
     class Gamer
     {
-        public string Name;
-        public DateTime DayOfBirth;
+        private string _Name;
+        private DateTime _DayOfBirth;
 
+        public Gamer(string Name, DateTime DayOfBirth)
+        {
+            _Name = Name;
+            _DayOfBirth = DayOfBirth;
+
+        }
         public void SayYourName()
         {
-            Console.WriteLine($"{Name} {DayOfBirth:dd:MM:yyyy HH:mm:ss}");
+            Console.WriteLine($"{_Name} {_DayOfBirth:dd:MM:yyyy HH:mm:ss}");
         }
     }
 }
