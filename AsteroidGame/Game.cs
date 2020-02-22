@@ -38,7 +38,7 @@ namespace AsteroidGame
             Graphics g = form.CreateGraphics();
 
 
-            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height);
+            __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
         }
     }
 }
