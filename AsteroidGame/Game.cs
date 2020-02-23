@@ -70,6 +70,8 @@ namespace AsteroidGame
                 __GameObjects[i] = new Cube(new Point(600, i * 10), new Point(i, 20), 20);
             }
 
+            var image = Properties.Resources.asteroid;
+            var image_object = new ImageObject(new Point(4, 7), new Point(7, 7), new Size(20, 20), image);
 
         }
 
