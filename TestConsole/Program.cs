@@ -85,7 +85,7 @@ namespace TestConsole
         }
     }
 
-    public class Student : ILogger, IComparable
+    public class Student : ILogger, IComparable, ICloneable
     {
         private List<string> _Messages = new List<string>();
         public string Name { get; set; }
@@ -150,5 +150,18 @@ namespace TestConsole
 
 
         public override string ToString() => $"{Name} - {Height}";
+
+        public object Clone()
+        {
+            //  Создание вручную
+            var new_student = new Student
+            {
+                Height = Height,
+                Name = Name,
+                Rating = new List<int>(Rating)
+            };
+
+            return new_student;
+        }
     }
 }
