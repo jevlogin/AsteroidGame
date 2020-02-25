@@ -26,7 +26,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            _Position = new Point(_Position.X + 3, 0);
+            _Position = new Point(_Position.X + 3, _Position.Y);
 
         }
     }

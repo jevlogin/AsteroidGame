@@ -149,7 +149,7 @@ namespace AsteroidGame
             __Bullet.Update();
             if (__Bullet.Position.X > Width)
             {
-                __Bullet = new Bullet(300);
+                __Bullet = new Bullet(200);
             }
         }
     }
