@@ -134,14 +134,22 @@ namespace AsteroidGame
                 visual_object.Draw(g);
             }
 
+            __Bullet.Draw(g);
+
             __Buffer.Render();
         }
 
+        //  обновление для всех объектов через класс Game
         public static void Update()
         {
             foreach (var visual_object in __GameObjects)
             {
                 visual_object.Update();
+            }
+            __Bullet.Update();
+            if (__Bullet.Position.X > Width)
+            {
+                __Bullet = new Bullet(300);
             }
         }
     }

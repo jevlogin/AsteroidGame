@@ -18,8 +18,10 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
-            g.FillEllipse(Brushes.BlueViolet, new Rectangle(_Position, _Size));
-            g.DrawEllipse(Pens.Blue, new Rectangle(_Position, _Size));
+            g.FillEllipse(Brushes.LightPink, new Rectangle(_Position, _Size));
+            g.DrawEllipse(Pens.Silver, new Rectangle(_Position, _Size));
+            g.FillRectangle(Brushes.Yellow, new RectangleF(_Position, new Size(_Size.Width - 10, _Size.Height)));
+            g.DrawRectangle(Pens.LightGoldenrodYellow, new Rectangle(_Position, new Size(_Size.Width - 10, _Size.Height)));
         }
 
         public override void Update()
