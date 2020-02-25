@@ -11,6 +11,10 @@ namespace AsteroidGame
 {
     static class Game
     {
+        /*
+         * Установили таймаут в 10 мс
+         */
+        private const int __FrameTimeout = 10;
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
 
         //  Графический контекст и буфер, новые звери в моем понимании
@@ -41,7 +45,7 @@ namespace AsteroidGame
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             //  Создаем таймер
-            var timer = new Timer { Interval = 50 };
+            var timer = new Timer { Interval = __FrameTimeout };
             timer.Tick += OnTimerTick;
             timer.Start();
         }
