@@ -77,7 +77,7 @@ namespace TestConsole
                 {
                     return +1;
                 }
-                else if (Height.Equals(other_student.Height)
+                else if (Height.Equals(other_student.Height))
                 {
                     return 0;
                 }
