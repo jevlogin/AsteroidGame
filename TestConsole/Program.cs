@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * Классы - это ссылочный тип данных.
+ * Структуры - это значимый тип данных.
+ */
 namespace TestConsole
 {
     static class Program
@@ -14,5 +18,6 @@ namespace TestConsole
             Console.ReadLine();
         }
     }
+
 
 }
