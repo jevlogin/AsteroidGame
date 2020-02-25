@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AsteroidGame.VisualObjects;
+using AsteroidGame.VisualObjects.Interfaces;
 
 namespace AsteroidGame
 {
@@ -83,13 +84,13 @@ namespace AsteroidGame
                     new Size(ellipse_size_x, ellipse_size_y)));
             }
 
-            const int asteroids_count = 10;
+            const int asteroids_count = 20;
             const int asteroid_size = 25;
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
             {
                 game_objects.Add(new Asteroid(new Point(rnd.Next(0, Width),
-                    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), 0),
+                    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
                     asteroid_size));
             }
 
@@ -131,7 +132,7 @@ namespace AsteroidGame
 
             foreach (var visual_object in __GameObjects)
             {
-                visual_object.Draw(g);
+                visual_object?.Draw(g);
             }
 
             __Bullet.Draw(g);
@@ -144,12 +145,26 @@ namespace AsteroidGame
         {
             foreach (var visual_object in __GameObjects)
             {
-                visual_object.Update();
+                visual_object?.Update();
             }
             __Bullet.Update();
             if (__Bullet.Position.X > Width)
             {
-                __Bullet = new Bullet(200);
+                __Bullet = new Bullet(new Random().Next(Width));
+            }
+            for (int i = 0; i < __GameObjects.Length; i++)
+            {
+                var obj = __GameObjects[i];
+                if (obj is ICollision)
+                {
+                    var collision_object = (ICollision)obj;
+                    if (__Bullet.CheckCollision(collision_object))
+                    {
+                        __Bullet = new Bullet(new Random().Next(Height));
+                        __GameObjects[i] = null;
+                        MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); //   Изменение оповещения
+                    }
+                }
             }
         }
     }

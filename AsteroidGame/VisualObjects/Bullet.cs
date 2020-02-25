@@ -17,7 +17,7 @@ namespace AsteroidGame.VisualObjects
 
         }
 
-        public Rectangle Rect => throw new NotImplementedException();
+        //public Rectangle Rect => throw new NotImplementedException();
 
         public bool CheckCollision(ICollision obj)
         {
