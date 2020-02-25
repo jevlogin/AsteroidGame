@@ -26,7 +26,13 @@ namespace TestConsole
 
             ListLogger critical_logger = new ListLogger();
             var student_logger = new Student { Name = "Ivanov" };
-            DoSomeCriticalWork(critical_logger);
+
+            //  Интерфейс скрыт от пользователя.
+            //student_logger.LogError("Do some work");
+            //  Чтобы использовать этот метод, необходимо явно привести к интерфейсу.
+            ((ILogger)student_logger).LogError("Do some work");
+
+            DoSomeCriticalWork(student_logger);
 
             logger.LogInformation("Start programm\n");
 
@@ -44,7 +50,7 @@ namespace TestConsole
             Console.ReadKey();
         }
 
-        public static void DoSomeCriticalWork(Logger log)
+        public static void DoSomeCriticalWork(ILogger log)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -53,12 +59,42 @@ namespace TestConsole
         }
     }
 
-    public class Student : ILogger
+    public class Student : ILogger, IComparable
     {
         private List<string> _Messages = new List<string>();
         public string Name { get; set; }
+        public double Height { get; set; } = 174;
 
         public List<int> Rating { get; set; } = new List<int>();
+
+        public int CompareTo(object obj)
+        {
+            if (obj is Student)
+            {
+                var other_student = (Student)obj;
+                //return StringComparer.OrdinalIgnoreCase.Compare(Name, other_student.Name);
+                if (Height > other_student.Height)
+                {
+                    return +1;
+                }
+                else if (Height.Equals(other_student.Height)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj), $"Попытка сравнения студента с пустотой");
+            }
+            else
+            {
+                throw new ArgumentException($"Попытка сравнения студента с {obj.GetType().Name}", nameof(obj));
+            }
+        }
 
         public void Log(string Message)
         {
@@ -66,10 +102,10 @@ namespace TestConsole
             _Messages.Add(Message);
         }
 
-        public void LogError(string Message)
-        {
-            Log($"Error: {Message}");
-        }
+        //public void LogError(string Message)
+        //{
+        //    Log($"Error: {Message}");
+        //}
 
         public void LogInformation(string Message)
         {
@@ -80,5 +116,11 @@ namespace TestConsole
         {
             Log($"Warning: {Message}");
         }
+
+        void ILogger.LogError(string Message)
+        {
+            Log($"Error: {Message}");
+        }
+
     }
 }
