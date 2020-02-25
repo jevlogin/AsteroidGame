@@ -57,6 +57,7 @@ namespace AsteroidGame
         }
 
         private static VisualObject[] __GameObjects;
+        private static Bullet __Bullet;
         public static void Load()
         {
             var game_objects = new List<VisualObject>();
@@ -92,6 +93,8 @@ namespace AsteroidGame
                     asteroid_size));
             }
 
+
+
             #region Это нам не нравится ))
             //__GameObjects = new VisualObject[30];
             //for (int i = 0; i < __GameObjects.Length / 3; i++)
@@ -110,12 +113,12 @@ namespace AsteroidGame
             //}
             #endregion
 
-
-
             //var image = Properties.Resources.asteroid;
             //var image_object = new ImageObject(new Point(4, 7), new Point(7, 7), new Size(20, 20), image);
 
             __GameObjects = game_objects.ToArray();
+            __Bullet = new Bullet(200);
+
         }
 
         public static void Draw()

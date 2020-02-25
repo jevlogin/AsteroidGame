@@ -11,7 +11,7 @@ namespace AsteroidGame.VisualObjects
     {
         private const int __BulletSizeX = 20;
         private const int __BulletSizeY = 5;
-        public Bullet(Point Position, Size Size) : base(Position, Point.Empty, new Size(__BulletSizeX, __BulletSizeY))
+        public Bullet(int Position) : base(new Point(0, Position), Point.Empty, new Size(__BulletSizeX, __BulletSizeY))
         {
 
         }
