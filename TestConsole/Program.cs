@@ -45,6 +45,9 @@ namespace TestConsole
 
             ListLogger critical_logger = new ListLogger();
             var student_logger = new Student { Name = "Ivanov" };
+            
+            //  Вот таким образом мы склонировали студента
+            var student_clone = (Student)student_logger.Clone();
 
             //  Интерфейс скрыт от пользователя.
             //student_logger.LogError("Do some work");
@@ -154,12 +157,18 @@ namespace TestConsole
         public object Clone()
         {
             //  Создание вручную
-            var new_student = new Student
-            {
-                Height = Height,
-                Name = Name,
-                Rating = new List<int>(Rating)
-            };
+            //var new_student = new Student
+            //{
+            //    Height = Height,
+            //    Name = Name,
+            //    Rating = new List<int>(Rating)
+            //};
+
+            //  в автоматическом режиме, копируются только простые типы, значимые.
+            //  ссылочные типы придется дописать самому
+            var new_student = (Student)MemberwiseClone();
+            new_student._Messages = new List<string>(_Messages);
+            new_student.Rating = new List<int>(Rating);
 
             return new_student;
         }
