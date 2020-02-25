@@ -15,7 +15,7 @@ namespace AsteroidGame.VisualObjects
         }
         public override void Draw(Graphics g)
         {
-            g.DrawEllipse(Pens.Red, _Position.X, _Position.Y, _Size.Width, _Size.Height);
+            g.DrawEllipse(Pens.Red, Rect);
         }
         public override void Update()
         {
