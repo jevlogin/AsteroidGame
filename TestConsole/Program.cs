@@ -18,15 +18,23 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            TraceLogger trace_logger = null;
-            try
+            //  Эта конструкция может быть упрощена.
+            //TraceLogger trace_logger = null;
+            //try
+            //{
+            //    trace_logger = new TraceLogger();
+            //    trace_logger.Log("123");
+            //}
+            //finally
+            //{
+            //    trace_logger.Dispose();
+            //}
+
+            using (var trace_logger = new TraceLogger())
             {
-                trace_logger = new TraceLogger();
+                //  Если мы будем работать с объектами для чтения или записи файлов
+                //  Сетью и еще рядом других подобных вещей, то обязательно оборачивать их в конструкцию using
                 trace_logger.Log("123");
-            }
-            finally
-            {
-                trace_logger.Dispose();
             }
 
             //Logger logger = new ListLogger();
