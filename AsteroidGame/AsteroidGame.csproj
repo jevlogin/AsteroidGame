@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VisualObjects\Cube.cs" />
+    <Compile Include="VisualObjects\Asteroid.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="VisualObjects\EllipseObject.cs" />
     <Compile Include="VisualObjects\ImageObject.cs" />

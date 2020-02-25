@@ -78,6 +78,16 @@ namespace AsteroidGame
                     new Size(ellipse_size_x, ellipse_size_y)));
             }
 
+            const int asteroids_count = 10;
+            const int asteroid_size = 25;
+            const int asteroid_max_speed = 20;
+            for (int i = 0; i < asteroids_count; i++)
+            {
+                game_objects.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), 0),
+                    asteroid_size));
+            }
+
             #region Это нам не нравится ))
             //__GameObjects = new VisualObject[30];
             //for (int i = 0; i < __GameObjects.Length / 3; i++)
