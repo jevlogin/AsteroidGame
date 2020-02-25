@@ -4,10 +4,18 @@
  *  abstract - если коротко, наложение ограничений на создание объектов этого класса
  * 
  */
+using System;
+using System.Diagnostics;
+
 namespace TestConsole
 {
-    public class TraceLogger : DebugLogger
+    public class TraceLogger : DebugLogger, IDisposable
     {
+        public void Dispose()
+        {
+            Trace.Flush();
+        }
+
         public override void Log(string Message, string Category)
         {
             System.Diagnostics.Trace.WriteLine($">>>>>> {Message}, {Category}");

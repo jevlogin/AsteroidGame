@@ -18,6 +18,17 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
+            TraceLogger trace_logger = null;
+            try
+            {
+                trace_logger = new TraceLogger();
+                trace_logger.Log("123");
+            }
+            finally
+            {
+                trace_logger.Dispose();
+            }
+
             //Logger logger = new ListLogger();
             //Logger logger = new FileLogger("programm_log.txt");
             //Logger logger = new VisualStudioOutputLogger();
@@ -43,10 +54,17 @@ namespace TestConsole
 
             logger.LogWarning("Завершение работы\n");
 
-            Trace.Flush();
-
             //var log_messages = ((ListLogger)logger).Messages;
 
+            var rnd = new Random();
+            var students = new Student[100];
+            for (int i = 0; i < students.Length; i++)
+            {
+                students[i] = new Student {Name = $"{i + 1}", Height = rnd.Next(150, 211) };
+            }
+            Array.Sort(students);
+
+            Trace.Flush();
             Console.ReadKey();
         }
 
@@ -122,5 +140,7 @@ namespace TestConsole
             Log($"Error: {Message}");
         }
 
+
+        public override string ToString() => $"{Name} - {Height}";
     }
 }
