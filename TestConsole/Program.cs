@@ -1,144 +1,176 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestConsole.Loggers;
 
+/*
+ * Классы - это ссылочный тип данных.
+ * Структуры - это значимый тип данных.
+ *  abstract - если коротко, наложение ограничений на создание объектов этого класса
+ * 
+ */
 namespace TestConsole
 {
     static class Program
     {
         static void Main(string[] args)
         {
-            #region Введение
-            //Gamer gamer = new Gamer("JEVLOGIN", new DateTime(1987, 1, 24, 0, 0, 0));
-
-            //Gamer[] gamers = new Gamer[100];
-            //for (int i = 0; i < gamers.Length; i++)
+            //  Эта конструкция может быть упрощена.
+            //TraceLogger trace_logger = null;
+            //try
             //{
-            //    var g = new Gamer($"Gamer {i + 1}", DateTime.Now.Subtract(TimeSpan.FromDays(365 * (i + 18))));
-            //    gamers[i] = g;
+            //    trace_logger = new TraceLogger();
+            //    trace_logger.Log("123");
+            //}
+            //finally
+            //{
+            //    trace_logger.Dispose();
             //}
 
-            //gamer.SayYourName();
+            using (var trace_logger = new TraceLogger())
+            {
+                //  Если мы будем работать с объектами для чтения или записи файлов
+                //  Сетью и еще рядом других подобных вещей, то обязательно оборачивать их в конструкцию using
+                trace_logger.Log("123");
+            }
 
-            //foreach (var g in gamers)
-            //{
-            //    g.SayYourName();
-            //}
+            //Logger logger = new ListLogger();
+            //Logger logger = new FileLogger("programm_log.txt");
+            //Logger logger = new VisualStudioOutputLogger();
+            Logger logger = new TraceLogger();
+            Trace.Listeners.Add(new TextWriterTraceListener("trace.log"));
 
+            ListLogger critical_logger = new ListLogger();
+            var student_logger = new Student { Name = "Ivanov" };
+            
+            //  Вот таким образом мы склонировали студента
+            var student_clone = (Student)student_logger.Clone();
 
-            ////gamer.SetName("Максим");
-            ////Console.WriteLine($"{gamer.GetName()}");
+            //  Интерфейс скрыт от пользователя.
+            //student_logger.LogError("Do some work");
+            //  Чтобы использовать этот метод, необходимо явно привести к интерфейсу.
+            ((ILogger)student_logger).LogError("Do some work");
 
-            //gamer.Name = "Konstantin";
+            DoSomeCriticalWork(student_logger);
 
-            ////gamer.GetNameLength();
+            logger.LogInformation("Start programm\n");
 
-            //Console.WriteLine($"Игрок первый = {gamer.Name}");
+            for (int i = 0; i < 10; i++)
+            {
+                logger.LogInformation($"Do some work {i + 1}\n");
+            }
 
-            #endregion
+            logger.LogWarning("Завершение работы\n");
 
-            #region test space_ship and Vector2D
+            //var log_messages = ((ListLogger)logger).Messages;
 
-            //var space_ship = new SpaceShip(new Vector2D(5, 7));
-            //var space_ship2 = space_ship;
-            //space_ship.Position = new Vector2D(150, -210);
+            var rnd = new Random();
+            var students = new Student[100];
+            for (int i = 0; i < students.Length; i++)
+            {
+                students[i] = new Student {Name = $"{i + 1}", Height = rnd.Next(150, 211) };
+            }
+            Array.Sort(students);
 
-            //var v1 = new Vector2D(1, 8);
-            //Console.WriteLine(v1);
-            //var v2 = v1;
-            //v1.X = 7;
-            //v1.Y = -14;
-
-            #endregion
-
-            #region Operator+, Operator-
-
-            //var v1 = new Vector2D(1, 8);
-            //var v2 = v1;
-            //v1.X = 7;
-            //v1.Y = -14;
-
-            //var v3 = v1 + v2;
-            //var v4 = v2 - v1;
-
-            //var v5 = v4 + 7;
-
-            //var v6 = -v5;
-
-            #endregion
-
-            #region Printer
-
-            //Printer printer = new Printer();
-
-            //printer.Print("Привет Мир!");
-
-            //printer = new PrefixPrinter(">>>>>>> ");
-
-            //printer.Print("Привет Мир!");
-
-            //printer = new DateTimeLogPrinter();
-
-            //printer.Print("Привет Мир!");
-
-            //printer = new FilePrinter("test.txt");
-            //printer.Print("Ну здравствуй Питер.");
-
-            #endregion
+            Trace.Flush();
             Console.ReadKey();
         }
-    }
 
-    class Printer
-    {
-        //  Пустой конструктор
-        public Printer()
+        public static void DoSomeCriticalWork(ILogger log)
         {
-
-        }
-        public virtual void Print(string str)
-        {
-            Console.WriteLine(str);
+            for (int i = 0; i < 10; i++)
+            {
+                log.LogInformation($"Do some very important work {i + 1} {log}");
+            }
         }
     }
 
-    class PrefixPrinter : Printer
+    public class Student : ILogger, IComparable, ICloneable
     {
-        private string _Prefix;
+        private List<string> _Messages = new List<string>();
+        public string Name { get; set; }
+        public double Height { get; set; } = 174;
 
-        //  Учимся использовать ЛЯМБДА ВЫРАЖЕНИЯ
-        public PrefixPrinter(string Prefix) => _Prefix = Prefix;
+        public List<int> Rating { get; set; } = new List<int>();
 
-        //  Переопределили ВИРТУАЛЬНЫЙ МЕТОД
-        public override void Print(string str)
+        public int CompareTo(object obj)
         {
-            //Console.WriteLine($"{_Prefix}{str}");
-            //  использовали метод базового класса.
-            base.Print(_Prefix + str);
+            if (obj is Student)
+            {
+                var other_student = (Student)obj;
+                //return StringComparer.OrdinalIgnoreCase.Compare(Name, other_student.Name);
+                if (Height > other_student.Height)
+                {
+                    return +1;
+                }
+                else if (Height.Equals(other_student.Height))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj), $"Попытка сравнения студента с пустотой");
+            }
+            else
+            {
+                throw new ArgumentException($"Попытка сравнения студента с {obj.GetType().Name}", nameof(obj));
+            }
         }
-    }
 
-    class DateTimeLogPrinter : Printer
-    {
-        public override void Print(string str)
+        public void Log(string Message)
         {
-            Console.Write(DateTime.Now);
-            Console.Write(" >> ");
-            base.Print(str);
+            Rating.Add(Message.Length);
+            _Messages.Add(Message);
         }
-    }
 
-    class FilePrinter : Printer
-    {
-        private string _FileName;
+        //public void LogError(string Message)
+        //{
+        //    Log($"Error: {Message}");
+        //}
 
-        public FilePrinter(string FileName) => _FileName = FileName;
-
-        public override void Print(string str)
+        public void LogInformation(string Message)
         {
-            System.IO.File.AppendAllText(_FileName, str);
+            Log($"Info: {Message}");
+        }
+
+        public void LogWarning(string Message)
+        {
+            Log($"Warning: {Message}");
+        }
+
+        void ILogger.LogError(string Message)
+        {
+            Log($"Error: {Message}");
+        }
+
+
+        public override string ToString() => $"{Name} - {Height}";
+
+        public object Clone()
+        {
+            //  Создание вручную
+            //var new_student = new Student
+            //{
+            //    Height = Height,
+            //    Name = Name,
+            //    Rating = new List<int>(Rating)
+            //};
+
+            //  в автоматическом режиме, копируются только простые типы, значимые.
+            //  ссылочные типы придется дописать самому
+            var new_student = (Student)MemberwiseClone();
+            new_student._Messages = new List<string>(_Messages);
+            new_student.Rating = new List<int>(Rating);
+
+            return new_student;
         }
     }
 }

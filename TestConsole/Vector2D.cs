@@ -2,18 +2,19 @@
 
 namespace TestConsole
 {
-    struct Vector2D
+    readonly struct Vector2D
     {
-        private double _X;
+        //  Изменения в структуре будут вноситься только путем создания новой структуры!!!!!!!
+        private readonly double _X; //  readonly - Крутая штука. )))
         //  писать поле не обязательно, так как использовали автосвойство.
         //private double _Y;
 
         //  Простое свойство.
-        public double X { get { return _X; } set { _X = value; } }
+        public double X { get { return _X; } }
         //  Ниже лямбда выражение
         //public double Y { get => _Y; set => _Y = value; }
         //  А внизу автосвойство. Свойство для ленивых
-        public double Y { get; set; }
+        public double Y { get; }
 
         public double Length => Math.Sqrt(X * X + Y * Y);
 
