@@ -44,6 +44,13 @@ namespace TestConsole
 
             //var result = student.CompareTo(dekanat);
 
+            foreach (var std in dekanat2)
+            {
+                Console.WriteLine(std);
+            }
+
+            var average_rating = dekanat2.Average(s => s.AverageRating);    //YAHOOEYU просто космические записи ))
+
             Console.ReadKey();
         }
     }

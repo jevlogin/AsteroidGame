@@ -13,27 +13,37 @@ namespace TestConsole
 
         public List<int> Rating { get; set; } = new List<int>();
 
-        public double AverageRating
+        //  Подсчет среднего бала автоматическим способом через IEnumerator
+        public double AverageRating /*=> Rating.Average();*/
         {
             get
             {
-                var ratings = Rating;
-                if (ratings == null)
-                {
-                    throw new InvalidOperationException("Невозможно рассчитать среднюю оценку. Список оценок не задан.");
-                }
-                if (ratings.Count == 0)
-                {
-                    return double.NaN;
-                }
-                var sum = 0;
-                for (int i = 0; i < ratings.Count; i++)
-                {
-                    sum += ratings[i];
-                }
-                return sum / (double)ratings.Count;
+                //return Rating.Average();
+                return Rating.Sum() / (double)Rating.Count;
             }
         }
+
+        //public double AverageRating
+        //{
+        //    get
+        //    {
+        //        var ratings = Rating;
+        //        if (ratings == null)
+        //        {
+        //            throw new InvalidOperationException("Невозможно рассчитать среднюю оценку. Список оценок не задан.");
+        //        }
+        //        if (ratings.Count == 0)
+        //        {
+        //            return double.NaN;
+        //        }
+        //        var sum = 0;
+        //        for (int i = 0; i < ratings.Count; i++)
+        //        {
+        //            sum += ratings[i];
+        //        }
+        //        return sum / (double)ratings.Count;
+        //    }
+        //}
 
         public object Clone()
         {
