@@ -42,7 +42,8 @@ namespace TestConsole
 
             var student = new Student { Name = $"Student", Rating = GetRandomRatings(rnd, 20, 50) };
 
-            var result = student.CompareTo(dekanat);
+            //var result = student.CompareTo(dekanat);
+
             Console.ReadKey();
         }
     }

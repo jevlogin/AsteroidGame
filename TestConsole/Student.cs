@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    class Student : IComparable
+    class Student : IComparable<Student>
+    /*IComparable*/
     {
         public string Name { get; set; }
 
@@ -34,11 +35,10 @@ namespace TestConsole
             }
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(Student other)
         {
-            var other_student = (Student)obj;
             var current_average_rating = AverageRating;
-            var other_average_rating = other_student.AverageRating;
+            var other_average_rating = other.AverageRating;
 
             if (Math.Abs(current_average_rating - other_average_rating) < 0.001)
             {
@@ -53,6 +53,26 @@ namespace TestConsole
                 return -1;
             }
         }
+
+        //public int CompareTo(object obj)
+        //{
+        //    var other_student = (Student)obj;
+        //    var current_average_rating = AverageRating;
+        //    var other_average_rating = other_student.AverageRating;
+
+        //    if (Math.Abs(current_average_rating - other_average_rating) < 0.001)
+        //    {
+        //        return 0;
+        //    }
+        //    if (current_average_rating > other_average_rating)
+        //    {
+        //        return +1;
+        //    }
+        //    else
+        //    {
+        //        return -1;
+        //    }
+        //}
 
         public override string ToString() => $"{Name}: {AverageRating:0.##}";
     }
