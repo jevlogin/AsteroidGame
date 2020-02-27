@@ -45,10 +45,13 @@ namespace TestConsole
         static void Main(string[] args)
         {
             var dekanat = new Dekanat();
-            dekanat.SubscribeToAdd(OnStudentAdd);
+            //dekanat.SubscribeToAdd(OnStudentAdd);
             dekanat.SubscribeToRemove(OnStudentRemoved);
             dekanat.SubscribeToRemove(GoToVoenkomat);
-            dekanat.SubscribeToAdd(std => Console.WriteLine("Еще раз поздравляем студента {0} с поступлением", std.Name));
+            //dekanat.SubscribeToAdd(std => Console.WriteLine("Еще раз поздравляем студента {0} с поступлением", std.Name));
+
+            dekanat.NewItemAdded += OnStudentAdd;
+            dekanat.ExcelentStudent += excelent_student => Console.WriteLine("!!! {0} !!!", excelent_student);
 
             var rnd = new Random();
             for (int i = 0; i < 100; i++)
@@ -59,6 +62,9 @@ namespace TestConsole
                     Rating = rnd.GetRandomIntValues(20, 2, 6).ToList() //GetRandomRatings(rnd, 20, 50)
                 });
             }
+
+            dekanat.Add(new Student { Name = "Strange student", Rating = new List<int> { 5, 5, 5, 5, 4, 5, 5 } });
+
             const string students_data_file = "students.csv";
             dekanat.SaveToFile(students_data_file);
 
