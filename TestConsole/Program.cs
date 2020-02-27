@@ -57,6 +57,9 @@ namespace TestConsole
             var average_rating = dekanat2.Average(s => s.AverageRating);    //YAHOOEYU просто космические записи ))
             var sum_average_rating = dekanat2.Sum(s => s.AverageRating);
 
+            var random_student_name = rnd.NextValue("Иванов", "Петров", "Сидоров");
+
+            var random_rating = rnd.NextValue(2, 4, 5, 7, 2);
 
             Console.ReadKey();
         }

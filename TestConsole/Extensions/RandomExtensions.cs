@@ -17,5 +17,9 @@ namespace TestConsole.Extensions
                 yield return rnd.Next(Min, Max);
             }
         }
+        public static T NextValue<T>(this Random rnd, params T[] Variants)
+        {
+            return Variants[rnd.Next(0, Variants.Length)];
+        }
     }
 }
