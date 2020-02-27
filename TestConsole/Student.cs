@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    class Student : IComparable<Student>
+    class Student : IComparable<Student>, IEquatable<Student>, IEquatable<string>
     /*IComparable*/
     {
         public string Name { get; set; }
@@ -53,6 +53,30 @@ namespace TestConsole
                 return -1;
             }
         }
+
+        public bool Equals(Student other) => other?.Name == Name;
+
+        public bool Equals(string other)
+        {
+            return Name == other;
+        }
+
+        //{
+        //    //return other?.Name == Name;
+
+        //    //  через тернарный оператор
+        //    //return (other == null ? null : other.Name) == Name;
+
+        //    //  подробно подробно
+        //    if (other == null)
+        //    {
+        //        return null == Name;
+        //    }
+        //    else
+        //    {
+        //        return other.Name == Name;
+        //    }
+        //}
 
         //public int CompareTo(object obj)
         //{

@@ -24,6 +24,8 @@ namespace TestConsole
             return _Items.Remove(Item);
         }
 
+        public bool IsContains(TItem Item) => _Items.Contains(Item);
+
         public void Clear()
         {
             _Items.Clear();
