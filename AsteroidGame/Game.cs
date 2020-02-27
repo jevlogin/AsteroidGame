@@ -16,7 +16,7 @@ namespace AsteroidGame
          * Установили таймаут в 10 мс
          * 
          */
-        private const int __FrameTimeout = 24;
+        private const int __FrameTimeout = 10;
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
 
         //  Графический контекст и буфер, новые звери в моем понимании
@@ -85,7 +85,7 @@ namespace AsteroidGame
                     new Size(ellipse_size_x, ellipse_size_y)));
             }
 
-            const int asteroids_count = 20;
+            const int asteroids_count = 10;
             const int asteroid_size = 25;
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
@@ -163,7 +163,7 @@ namespace AsteroidGame
                     {
                         __Bullet = new Bullet(new Random().Next(Height));
                         __GameObjects[i] = null;
-                        MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); //   Изменение оповещения
+                        MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
                     }
                 }
             }
