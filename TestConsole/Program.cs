@@ -37,6 +37,8 @@ namespace TestConsole
             const string students_data_file = "students.csv";
             dekanat.SaveToFile(students_data_file);
 
+            var dekanat2 = new Dekanat();
+            dekanat2.LoadFromFile(students_data_file);
             Console.ReadKey();
         }
     }
