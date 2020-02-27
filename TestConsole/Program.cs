@@ -85,7 +85,11 @@ namespace TestConsole
             //Console.ReadLine();
             //ProcessStudents(dekanat2, GetAverageStudentRating); //  делегат в делегате
 
-            ProcessStudentsStandard(dekanat2, PrintStudent);
+            //ProcessStudentsStandard(dekanat2, PrintStudent);
+
+            Console.Clear();
+
+            var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int)(student.AverageRating * 10)); //  Мой мозг улетел в космос и взорвался об астероид
 
             Console.ReadKey();
         }
@@ -101,6 +105,16 @@ namespace TestConsole
             {
                 action(s);
             }
+        }
+
+        public static int[] GetStudentsMetrics(IEnumerable<Student> Students, Func<Student, int> GetMetric)
+        {
+            var result = new List<int>();
+            foreach (var student in Students)
+            {
+                result.Add(GetMetric(student));
+            }
+            return result.ToArray();
         }
 
         public static void ProcessStudents(IEnumerable<Student> Students, StudentProcessor Processor)
