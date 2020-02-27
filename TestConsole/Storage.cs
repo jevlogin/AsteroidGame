@@ -12,6 +12,10 @@ namespace TestConsole
     {
         protected readonly List<TItem> _Items = new List<TItem>();
 
+        protected Action<TItem> _AddObservers;
+        protected Action<TItem> _RemoveObservers;
+
+
         public void Add(TItem Item)
         {
             if (_Items.Contains(Item))
@@ -19,10 +23,21 @@ namespace TestConsole
                 return;
             }
             _Items.Add(Item);
+            //_AddObservers?.Invoke(Item);
+            var add_observers = _AddObservers;
+            if (add_observers != null)
+            {
+                add_observers(Item);
+            }
         }
         public bool Remove(TItem Item)
         {
-            return _Items.Remove(Item);
+            var result = _Items.Remove(Item);
+            if (result)
+            {
+                _RemoveObservers?.Invoke(Item);
+            }
+            return result;
         }
 
         public bool IsContains(TItem Item) => _Items.Contains(Item);
@@ -46,11 +61,17 @@ namespace TestConsole
                 yield return _Items[i];
             }
         }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public void SubscribeToAdd(Action<TItem> Observer)
         {
-            throw new NotImplementedException();
+            _AddObservers = Observer;
         }
+        public void SubscribeToRemove(Action<TItem> Observer)
+        {
+            _RemoveObservers = Observer;
+        }
+
     }
 
     class Dekanat : Storage<Student>

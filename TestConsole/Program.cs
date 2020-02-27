@@ -27,9 +27,24 @@ namespace TestConsole
             }
             return result;
         }
+
+        private static void OnStudentAdd(Student Student)
+        {
+            Console.WriteLine("Студент {0} добавлен", Student.Name);
+        }
+
+        private static void OnStudentRemoved(Student Student)
+        {
+            Console.WriteLine("Студент {0} исключен", Student.Name);
+        }
+
         static void Main(string[] args)
         {
             var dekanat = new Dekanat();
+            dekanat.SubscribeToAdd(OnStudentAdd);
+            dekanat.SubscribeToRemove(OnStudentRemoved);
+
+
             var rnd = new Random();
             for (int i = 0; i < 100; i++)
             {
@@ -87,9 +102,15 @@ namespace TestConsole
 
             //ProcessStudentsStandard(dekanat2, PrintStudent);
 
-            Console.Clear();
+            //Console.Clear();
 
-            var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int)(student.AverageRating * 10)); //  Мой мозг улетел в космос и взорвался об астероид
+            //var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int)(student.AverageRating * 10)); //  Мой мозг улетел в космос и взорвался об астероид
+            Console.Clear();
+            Console.ReadKey();
+
+            var student_to_remove = dekanat.Skip(65).First();
+            dekanat.Remove(student_to_remove);
+
 
             Console.ReadKey();
         }
