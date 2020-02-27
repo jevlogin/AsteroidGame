@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections;
 
 namespace TestConsole
 {
-    abstract class Storage<TItem>
+    abstract class Storage<TItem> : IEnumerable<TItem>
     {
         protected readonly List<TItem> _Items = new List<TItem>();
 
@@ -35,6 +36,20 @@ namespace TestConsole
         public virtual void LoadFromFile(string FileName)
         {
             Clear();
+        }
+
+        public IEnumerator<TItem> GetEnumerator()
+        {
+            for (int i = 0; i < _Items.Count; i++)
+            {
+                //  yield - специальный модификатор
+                yield return _Items[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 

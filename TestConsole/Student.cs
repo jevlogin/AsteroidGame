@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    class Student : IComparable<Student>, IEquatable<Student>, IEquatable<string>
+    class Student : IComparable<Student>, IEquatable<Student>, IEquatable<string>, ICloneable<Student>
     /*IComparable*/
     {
         public string Name { get; set; }
@@ -33,6 +33,20 @@ namespace TestConsole
                 }
                 return sum / (double)ratings.Count;
             }
+        }
+
+        public object Clone()
+        {
+            return new Student
+            {
+                Name = Name,
+                Rating = new List<int>(Rating)
+            };
+        }
+
+        public Student CloneObject()
+        {
+            return (Student)Clone();
         }
 
         public int CompareTo(Student other)
