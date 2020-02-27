@@ -79,13 +79,28 @@ namespace TestConsole
             //    Console.WriteLine(processor(s, Index++));
             //}
 
-            Console.ReadLine();
-            ProcessStudents(dekanat2, GetIndexStudentName);
+            //Console.ReadLine();
+            //ProcessStudents(dekanat2, GetIndexStudentName);
 
-            Console.ReadLine();
-            ProcessStudents(dekanat2, GetAverageStudentRating); //  делегат в делегате
+            //Console.ReadLine();
+            //ProcessStudents(dekanat2, GetAverageStudentRating); //  делегат в делегате
+
+            ProcessStudentsStandard(dekanat2, PrintStudent);
 
             Console.ReadKey();
+        }
+
+        private static void PrintStudent(Student student)
+        {
+            Console.WriteLine("Студент: {0}", student.Name);
+        }
+
+        public static void ProcessStudentsStandard(IEnumerable<Student> Students, Action<Student> action)
+        {
+            foreach (var s in Students)
+            {
+                action(s);
+            }
         }
 
         public static void ProcessStudents(IEnumerable<Student> Students, StudentProcessor Processor)
