@@ -10,6 +10,8 @@ namespace TestConsole
 {
     abstract class Storage<TItem> : IEnumerable<TItem>
     {
+
+
         protected readonly List<TItem> _Items = new List<TItem>();
 
         protected Action<TItem> _AddObservers;

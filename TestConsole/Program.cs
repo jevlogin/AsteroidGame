@@ -48,7 +48,7 @@ namespace TestConsole
             dekanat.SubscribeToAdd(OnStudentAdd);
             dekanat.SubscribeToRemove(OnStudentRemoved);
             dekanat.SubscribeToRemove(GoToVoenkomat);
-
+            dekanat.SubscribeToAdd(std => Console.WriteLine("Еще раз поздравляем студента {0} с поступлением", std.Name));
 
             var rnd = new Random();
             for (int i = 0; i < 100; i++)
@@ -81,6 +81,7 @@ namespace TestConsole
 
             var random_rating = rnd.NextValue(2, 4, 5, 7, 2);
 
+            #region старое
             // равносильные записи. Использование ДЕЛЕГАТА
             //StudentProcessor processor = new StudentProcessor(GetIndexStudentName);
             //StudentProcessor processor = GetIndexStudentName;
@@ -110,7 +111,9 @@ namespace TestConsole
             //Console.Clear();
 
             //var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int)(student.AverageRating * 10)); //  Мой мозг улетел в космос и взорвался об астероид
-            Console.Clear();
+            #endregion
+
+            //Console.Clear();
             Console.ReadKey();
 
             var student_to_remove = dekanat.Skip(65).First();
