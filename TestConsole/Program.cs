@@ -61,7 +61,37 @@ namespace TestConsole
 
             var random_rating = rnd.NextValue(2, 4, 5, 7, 2);
 
+            // равносильные записи. Использование ДЕЛЕГАТА
+            //StudentProcessor processor = new StudentProcessor(GetIndexStudentName);
+            StudentProcessor processor = GetIndexStudentName;
+
+            var Index = 0;
+            foreach (var s in dekanat2)
+            {
+                Console.WriteLine(processor(s, Index++));
+            }
+            Console.ReadLine();
+
+            processor = GetAverageStudentRating;
+            Index = 0;
+            foreach (var s in dekanat2)
+            {
+                Console.WriteLine(processor(s, Index++));
+            }
+
             Console.ReadKey();
         }
+
+        private static string GetIndexStudentName(Student student, int Index)
+        {
+            return $"{student.Name}[{Index}]";
+        }
+
+        public static string GetAverageStudentRating(Student student, int Index)
+        {
+            return $"[{Index}]:{student.Name} - {student.AverageRating}";
+        }
     }
+
+    internal delegate string StudentProcessor(Student Student, int Index);
 }
