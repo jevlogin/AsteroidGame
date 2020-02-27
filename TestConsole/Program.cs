@@ -39,6 +39,10 @@ namespace TestConsole
 
             var dekanat2 = new Dekanat();
             dekanat2.LoadFromFile(students_data_file);
+
+            var student = new Student { Name = $"Student", Rating = GetRandomRatings(rnd, 20, 50) };
+
+            var result = student.CompareTo(dekanat);
             Console.ReadKey();
         }
     }
