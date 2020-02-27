@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Gamer.cs" />
-    <Compile Include="IClonable.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="Loggers\DebugLogger.cs" />
     <Compile Include="Loggers\FileLogger.cs" />
     <Compile Include="Loggers\ILogger.cs" />
