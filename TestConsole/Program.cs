@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestConsole.Loggers;
+using TestConsole.Extensions;
 
 /*
  * Классы - это ссылочный тип данных.
@@ -32,7 +33,11 @@ namespace TestConsole
             var rnd = new Random();
             for (int i = 0; i < 100; i++)
             {
-                dekanat.Add(new Student { Name = $"Student {i + 1}", Rating = GetRandomRatings(rnd, 20, 50)});
+                dekanat.Add(new Student
+                {
+                    Name = $"Student {i + 1}",
+                    Rating = rnd.GetRandomIntValues(20, 2, 6).ToList() //GetRandomRatings(rnd, 20, 50)
+                });
             }
             const string students_data_file = "students.csv";
             dekanat.SaveToFile(students_data_file);
@@ -50,6 +55,8 @@ namespace TestConsole
             }
 
             var average_rating = dekanat2.Average(s => s.AverageRating);    //YAHOOEYU просто космические записи ))
+            var sum_average_rating = dekanat2.Sum(s => s.AverageRating);
+
 
             Console.ReadKey();
         }
