@@ -63,23 +63,38 @@ namespace TestConsole
 
             // равносильные записи. Использование ДЕЛЕГАТА
             //StudentProcessor processor = new StudentProcessor(GetIndexStudentName);
-            StudentProcessor processor = GetIndexStudentName;
+            //StudentProcessor processor = GetIndexStudentName;
 
-            var Index = 0;
-            foreach (var s in dekanat2)
-            {
-                Console.WriteLine(processor(s, Index++));
-            }
+            //var Index = 0;
+            //foreach (var s in dekanat2)
+            //{
+            //    Console.WriteLine(processor(s, Index++));
+            //}
+            //Console.ReadLine();
+
+            //processor = GetAverageStudentRating;
+            //Index = 0;
+            //foreach (var s in dekanat2)
+            //{
+            //    Console.WriteLine(processor(s, Index++));
+            //}
+
             Console.ReadLine();
+            ProcessStudents(dekanat2, GetIndexStudentName);
 
-            processor = GetAverageStudentRating;
-            Index = 0;
-            foreach (var s in dekanat2)
-            {
-                Console.WriteLine(processor(s, Index++));
-            }
+            Console.ReadLine();
+            ProcessStudents(dekanat2, GetAverageStudentRating); //  делегат в делегате
 
             Console.ReadKey();
+        }
+
+        public static void ProcessStudents(IEnumerable<Student> Students, StudentProcessor Processor)
+        {
+            var Index = 0;
+            foreach (var s in Students)
+            {
+                Console.WriteLine(Processor(s, Index++));
+            }
         }
 
         private static string GetIndexStudentName(Student student, int Index)
