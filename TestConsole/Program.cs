@@ -18,17 +18,16 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            var students_storage = new Storage<Student>();
             var dekanat = new Dekanat();
-
-            var students = new List<Student>();
 
             for (int i = 0; i < 100; i++)
             {
                 dekanat.Add(new Student { Name = $"Student {i + 1}", });
             }
+            const string students_data_file = "students.csv";
+            dekanat.SaveToFile(students_data_file);
+
             Console.ReadKey();
         }
-
     }
 }
