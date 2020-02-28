@@ -14,7 +14,6 @@ namespace AsteroidGame
     {
         /*
          * Установили таймаут в 10 мс
-         * 
          */
         private const int __FrameTimeout = 30;
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
@@ -29,12 +28,6 @@ namespace AsteroidGame
 
         public static int Width { get; set; }
         public static int Height { get; set; }
-
-        //  Статический конструктор  вызывается в непрогнозируемое время
-        //static Game()
-        //{
-
-        //}
 
         public static void Initialize(Form form)
         {
@@ -106,11 +99,7 @@ namespace AsteroidGame
                     asteroid_size));
             }
 
-
             __GameObjects = game_objects.ToArray();
-            //__Bullet = new Bullet(200);
-            //__Bullet = new Bullet(Game.Height);   //  первая пуля будет за предделами поля по высоте окна игры
-            //__Bullet = null;  //  или просто не рисуем первую пулю. Только когда полетит после выстрела
             __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
         }
 
@@ -118,10 +107,7 @@ namespace AsteroidGame
         {
             var g = __Buffer.Graphics;
             g.Clear(Color.Black);
-
-            //g.DrawRectangle(Pens.White, new Rectangle(50, 50, 200, 200));
-            //g.FillEllipse(Brushes.Red, new Rectangle(100, 50, 70, 120));
-
+   
             foreach (var visual_object in __GameObjects)
             {
                 visual_object?.Draw(g);
@@ -151,7 +137,6 @@ namespace AsteroidGame
                     if (__Bullet != null && __Bullet.CheckCollision(collision_object))
                     {
                         __Bullet = null;
-                        //__Bullet = new Bullet(new Random().Next(Height));
                         __GameObjects[i] = null;
                         //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
                     }
