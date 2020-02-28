@@ -16,7 +16,7 @@ namespace AsteroidGame
          * Установили таймаут в 10 мс
          * 
          */
-        private const int __FrameTimeout = 10;
+        private const int __FrameTimeout = 30;
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
 
         //  Графический контекст и буфер, новые звери в моем понимании
@@ -50,6 +50,24 @@ namespace AsteroidGame
             var timer = new Timer { Interval = __FrameTimeout };
             timer.Tick += OnTimerTick;
             timer.Start();
+
+            form.KeyDown += OnFormKeyDown;
+        }
+
+        private static void OnFormKeyDown(object Sender, KeyEventArgs E)
+        {
+            switch (E.KeyCode)
+            {
+                case Keys.ControlKey:
+                    __Bullet = new Bullet(__Ship.Position.Y);
+                    break;
+                case Keys.Up:
+                    __Ship.MoveUp();
+                    break;
+                case Keys.Down:
+                    __Ship.MoveDown();
+                    break;
+            }
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -57,6 +75,8 @@ namespace AsteroidGame
             Update();
             Draw();
         }
+
+        private static SpaceShip __Ship;
 
         private static VisualObject[] __GameObjects;
         private static Bullet __Bullet;
@@ -70,21 +90,12 @@ namespace AsteroidGame
             const int star_max_speed = 20;
             for (int i = 0; i < star_count; i++)
             {
-                game_objects.Add(new Star(new Point(rnd.Next(0, Width), 
-                    rnd.Next(0, Height)), new Point(rnd.Next(0, star_max_speed), 0), 
+                game_objects.Add(new Star(new Point(rnd.Next(0, Width),
+                    rnd.Next(0, Height)), new Point(rnd.Next(0, star_max_speed), 0),
                     star_size));
             }
 
-            const int ellipse_count = 20;
-            const int ellipse_size_x = 20;
-            const int ellipse_size_y = 30;
-            for (int i = 0; i < ellipse_count; i++)
-            {
-                game_objects.Add(new EllipseObject(new Point(600, i * 20), 
-                    new Point(15 - i, 20 - i), 
-                    new Size(ellipse_size_x, ellipse_size_y)));
-            }
-
+           
             const int asteroids_count = 10;
             const int asteroid_size = 25;
             const int asteroid_max_speed = 20;
@@ -96,31 +107,11 @@ namespace AsteroidGame
             }
 
 
-
-            #region Это нам не нравится ))
-            //__GameObjects = new VisualObject[30];
-            //for (int i = 0; i < __GameObjects.Length / 3; i++)
-            //{
-            //    //__GameObjects[i] = new VisualObject(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(20, 20));
-            //}
-
-            //for (int i = __GameObjects.Length / 3; i < __GameObjects.Length *2 / 3; i++)
-            //{
-            //    __GameObjects[i] = new Star(new Point(600, i * 10), new Point(i, 20 - i), 20);
-            //}
-
-            //for (int i = __GameObjects.Length * 2 / 3; i < __GameObjects.Length; i++)
-            //{
-            //    __GameObjects[i] = new Cube(new Point(600, i * 10), new Point(i, 20), 20);
-            //}
-            #endregion
-
-            //var image = Properties.Resources.asteroid;
-            //var image_object = new ImageObject(new Point(4, 7), new Point(7, 7), new Size(20, 20), image);
-
             __GameObjects = game_objects.ToArray();
-            __Bullet = new Bullet(200);
-
+            //__Bullet = new Bullet(200);
+            //__Bullet = new Bullet(Game.Height);   //  первая пуля будет за предделами поля по высоте окна игры
+            //__Bullet = null;  //  или просто не рисуем первую пулю. Только когда полетит после выстрела
+            __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
         }
 
         public static void Draw()
@@ -136,7 +127,8 @@ namespace AsteroidGame
                 visual_object?.Draw(g);
             }
 
-            __Bullet.Draw(g);
+            __Bullet?.Draw(g);
+            __Ship.Draw(g);
 
             __Buffer.Render();
         }
@@ -148,22 +140,20 @@ namespace AsteroidGame
             {
                 visual_object?.Update();
             }
-            __Bullet.Update();
-            if (__Bullet.Position.X > Width)
-            {
-                __Bullet = new Bullet(new Random().Next(Width));
-            }
+
+            __Bullet?.Update();
             for (int i = 0; i < __GameObjects.Length; i++)
             {
                 var obj = __GameObjects[i];
                 if (obj is ICollision)
                 {
                     var collision_object = (ICollision)obj;
-                    if (__Bullet.CheckCollision(collision_object))
+                    if (__Bullet != null && __Bullet.CheckCollision(collision_object))
                     {
-                        __Bullet = new Bullet(new Random().Next(Height));
+                        __Bullet = null;
+                        //__Bullet = new Bullet(new Random().Next(Height));
                         __GameObjects[i] = null;
-                        MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
+                        //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
                     }
                 }
             }
