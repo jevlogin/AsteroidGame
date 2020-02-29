@@ -47,8 +47,23 @@ namespace TestConsole
             //    }
             //}
 
+            List<Student> students = new List<Student>(45);
 
+            for (int i = 0; i < 46; i++)
+            {
+                students.Add(new Student());
+            }
 
+            var students_to_add = new Student[20];
+            for (int i = 0; i < students_to_add.Length; i++)
+            {
+                students_to_add[i] = new Student();
+            }
+
+            //  Добавление массива  в список одним пакетом. Увеличение быстродействия. Всегда проверять возможно ли такое?
+            students.AddRange(students_to_add);
+
+            students.Capacity = students.Count; // выравнивание кол-ва элементов для сохранения памяти в оперативной памяти
 
             Console.ReadKey();
         }
