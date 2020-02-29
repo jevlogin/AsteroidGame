@@ -11,6 +11,7 @@ namespace AsteroidGame.VisualObjects
     public class SpaceShip : ImageObject, ICollision
     {
         public event EventHandler ShipDestroyed;
+        public event EventHandler ShipScores;
 
         private int _Energy = 100;
         public int Score { get; set; } = 0;
@@ -23,7 +24,10 @@ namespace AsteroidGame.VisualObjects
         public override void Update()
         {
         }
-
+        public void ChangeScore(int Score)
+        {
+            Score += Score;
+        }
         public void ChangeEnergy(int Delta)
         {
             _Energy += Delta;
