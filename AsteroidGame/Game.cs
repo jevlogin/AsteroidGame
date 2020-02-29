@@ -63,6 +63,12 @@ namespace AsteroidGame
                 case Keys.Down:
                     __Ship.MoveDown();
                     break;
+                //case Keys.Right:
+                //    __Ship.MoveRight(); //  не забыть дописать методы
+                //    break;
+                //case Keys.Left:
+                //    __Ship.MoveLeft();  //  не забыть дописать методы
+                //    break;
             }
         }
 
@@ -103,7 +109,7 @@ namespace AsteroidGame
             }
 
             __GameObjects = game_objects.ToArray();
-            __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
+            __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 10);
             __Ship.ShipDestroyed += OnShipDestroyed;
         }
 

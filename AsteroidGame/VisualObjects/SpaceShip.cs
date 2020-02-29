@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace AsteroidGame.VisualObjects
 {
-    public class SpaceShip : VisualObject, ICollision
+    public class SpaceShip : ImageObject, ICollision
     {
         public event EventHandler ShipDestroyed;
 
         private int _Energy = 10;
         public int Energy => _Energy;
 
-        public SpaceShip(Point Position, Point Direction, Size Size) : base(Position, Direction, Size)
+        public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize, ImageSize), Properties.Resources.SpaceShip1)
         {
+
         }
 
         public override void Draw(Graphics g)
