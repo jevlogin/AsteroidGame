@@ -12,7 +12,7 @@ namespace AsteroidGame.VisualObjects
     {
         public event EventHandler ShipDestroyed;
 
-        private int _Energy = 100;
+        private int _Energy = 10;
         public int Energy => _Energy;
 
         public SpaceShip(Point Position, Point Direction, Size Size) : base(Position, Direction, Size)
@@ -59,7 +59,7 @@ namespace AsteroidGame.VisualObjects
         public bool CheckCollision(ICollision obj)
         {
             var is_collision = Rect.IntersectsWith(obj.Rect);
-            if (obj is Asteroid asteroid)
+            if (is_collision && obj is Asteroid asteroid)
             {
                 ChangeEnergy(-asteroid.Power);
             }

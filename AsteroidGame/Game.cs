@@ -15,7 +15,7 @@ namespace AsteroidGame
         /*
          * Установили таймаут в 10 мс
          */
-        private const int __FrameTimeout = 30;
+        private const int __FrameTimeout = 10;
         //  Статический класс способен хранить внутри себя только статические методы. Экземпляр этого класса создать нельзя.
 
         //  Графический контекст и буфер, новые звери в моем понимании
@@ -25,6 +25,8 @@ namespace AsteroidGame
         public static Graphics Graphics { get; private set; }
 
         private static BufferedGraphics __Buffer;
+
+        private static Timer __Timer;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
@@ -43,6 +45,7 @@ namespace AsteroidGame
             var timer = new Timer { Interval = __FrameTimeout };
             timer.Tick += OnTimerTick;
             timer.Start();
+            __Timer = timer;
 
             form.KeyDown += OnFormKeyDown;
         }
@@ -88,8 +91,8 @@ namespace AsteroidGame
                     star_size));
             }
 
-           
-            const int asteroids_count = 10;
+
+            const int asteroids_count = 20;
             const int asteroid_size = 25;
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
@@ -101,13 +104,26 @@ namespace AsteroidGame
 
             __GameObjects = game_objects.ToArray();
             __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
+            __Ship.ShipDestroyed += OnShipDestroyed;
+        }
+
+        private static void OnShipDestroyed(object sender, EventArgs e)
+        {
+            __Timer.Stop();
+            __Buffer.Graphics.Clear(Color.DarkBlue);
+            __Buffer.Graphics.DrawString("Game Over", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
+            __Buffer.Render();
         }
 
         public static void Draw()
         {
+            if (__Ship.Energy <= 0)
+            {
+                return;
+            }
             var g = __Buffer.Graphics;
             g.Clear(Color.Black);
-   
+
             foreach (var visual_object in __GameObjects)
             {
                 visual_object?.Draw(g);
@@ -116,6 +132,7 @@ namespace AsteroidGame
             __Bullet?.Draw(g);
             __Ship.Draw(g);
 
+            g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.White, 10, 10);
             __Buffer.Render();
         }
 
@@ -134,6 +151,7 @@ namespace AsteroidGame
                 if (obj is ICollision)
                 {
                     var collision_object = (ICollision)obj;
+                    __Ship.CheckCollision(collision_object);
                     if (__Bullet != null && __Bullet.CheckCollision(collision_object))
                     {
                         __Bullet = null;
