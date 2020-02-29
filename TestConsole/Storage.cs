@@ -97,15 +97,6 @@ namespace TestConsole
 
         public override void SaveToFile(string FileName)
         {
-            ////  Полноценный вариант
-            //using (var file_stream = new FileStream(FileName, FileMode.Create, FileAccess.Write, FileShare.None))
-            //{
-            //    using (var writer = new StreamWriter(file_stream))
-            //    {
-            //        //  А вот тут была бы работа с текстом
-            //    }
-            //}
-
             //  Упрощенный вариант
             using (var file_writer = File.CreateText(FileName))
             {
@@ -133,18 +124,6 @@ namespace TestConsole
                 throw new FileNotFoundException("Файл с данными деканата не найден", FileName);
             }
             base.LoadFromFile(FileName);
-
-            ////  Полноценный вариант, в случае когда захотим использовать буфер, придется писать ручками
-            //using (var file_stream = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            //{
-            //    using(var buffer_stream = new BufferedStream(file_stream, 1024 * 1024))
-            //    {
-            //        using (var reader = new StreamReader(file_stream))
-            //        {
-            //            //  Читаем файл
-            //        }
-            //    }
-            //}
 
             //  Упрощенный вариант
             using (var file_reader = File.OpenText(FileName))
