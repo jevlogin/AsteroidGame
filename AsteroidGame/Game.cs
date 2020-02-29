@@ -166,6 +166,11 @@ namespace AsteroidGame
                         __GameObjects[i] = null;
                         //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
                     }
+                    //  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
+                    if (__Ship != null && __Ship.CheckCollision(collision_object))
+                    {
+                        __GameObjects[i] = null;
+                    }
                 }
             }
         }

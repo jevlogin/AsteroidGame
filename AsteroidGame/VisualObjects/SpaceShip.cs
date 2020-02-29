@@ -18,15 +18,7 @@ namespace AsteroidGame.VisualObjects
 
         public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize * 2, ImageSize), Properties.Resources.SpaceShip1)
         {
-
         }
-
-        //public override void Draw(Graphics g)
-        //{
-        //    var rect = Rect;
-        //    g.FillEllipse(Brushes.Blue, rect);
-        //    g.DrawEllipse(Pens.Silver, rect);
-        //}
 
         public override void Update()
         {
