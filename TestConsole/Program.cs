@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,40 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
+            //var simple_array_list = new ArrayList();
+
+            //simple_array_list.Add(42);
+            //simple_array_list.Add(new object());
+            //simple_array_list.Add(3.14456465468);
+            //simple_array_list.Add("Hello World!");
+
+            //for (int i = 0; i < simple_array_list.Count; i++)
+            //{
+            //    var value = simple_array_list[i];
+            //    if (value is int)
+            //    {
+            //        int v = (int)value;
+            //        Console.WriteLine($"Int: {v}");
+            //    }
+            //    else if (value is string)
+            //    {
+            //        string v = (string)value;
+            //        Console.WriteLine($"String: {v}");
+            //    }
+            //    else if (value is double)
+            //    {
+            //        double v = (double)value;
+            //        Console.WriteLine($"Double: {v}");
+            //    }
+            //    else if(value is object)
+            //    {
+            //        object v = (object)value;
+            //        Console.WriteLine($"Object: {v}");
+            //    }
+            //}
+
+
+
 
             Console.ReadKey();
         }
