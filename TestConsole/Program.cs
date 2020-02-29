@@ -88,8 +88,13 @@ namespace TestConsole
             //string_list.CopyTo(strings_array, 0);
 
             var str_value_index = string_list.BinarySearch("Message 712");
+            //string_list.ForEach(PrintString);
 
-            string_list.ForEach(PrintString);
+            const string data_dir_name = "TestData";
+
+            var total_lines = DataDirectoryProcessor.GetTotalLinesCount(data_dir_name);
+
+            Console.WriteLine($"Число строк = {total_lines}");
 
             Console.ReadKey();
         }
