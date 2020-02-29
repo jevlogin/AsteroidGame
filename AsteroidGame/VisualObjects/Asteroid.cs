@@ -11,7 +11,10 @@ namespace AsteroidGame.VisualObjects
 {
     class Asteroid : ImageObject, ICollision
     {
-        public Asteroid(Point Position, Point Direction, int ImageSize) :base(Position, Direction, new Size(ImageSize, ImageSize), Properties.Resources.asteroid)
+        static Random rnd = new Random();
+        public int Power { get; set; } = rnd.Next(1, 6); //  Мощность астероида от 1 до 5
+
+        public Asteroid(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize, ImageSize), Properties.Resources.asteroid)
         {
 
         }
