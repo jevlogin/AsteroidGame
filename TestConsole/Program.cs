@@ -66,7 +66,29 @@ namespace TestConsole
 
             //  список будет создан на основе любого перечисления
             var new_students_list = new List<Student>(students_to_add);
+            students.RemoveAt(5);
 
+            var number_list = new List<int>(1000);
+            for (int i = 0; i < number_list.Capacity; i++)
+            {
+                number_list.Add(i+22);
+            }
+            var value_index = number_list.BinarySearch(712);
+            
+            var string_list = new List<string>(1000);
+            for (int i = 0; i < string_list.Capacity; i++)
+            {
+                string_list.Add($"Message {i + 22}");
+            }
+            string_list.Sort(); //  странно после сортировки индекс изменяется на 687 до этого 690
+            string_list.Sort((s1, s2) => StringComparer.Ordinal.Compare(s2, s1));   //  перевернули список
+
+            //var strings_array = string_list.ToArray();
+            var strings_array = new string[string_list.Count];
+            string_list.CopyTo(strings_array, 0);
+
+            var str_value_index = string_list.BinarySearch("Message 712");
+             
             Console.ReadKey();
         }
     }
