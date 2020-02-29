@@ -12,20 +12,21 @@ namespace AsteroidGame.VisualObjects
     {
         public event EventHandler ShipDestroyed;
 
-        private int _Energy = 10;
+        private int _Energy = 100;
+        public int Score { get; set; } = 0;
         public int Energy => _Energy;
 
-        public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize, ImageSize), Properties.Resources.SpaceShip1)
+        public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize * 2, ImageSize), Properties.Resources.SpaceShip1)
         {
 
         }
 
-        public override void Draw(Graphics g)
-        {
-            var rect = Rect;
-            g.FillEllipse(Brushes.Blue, rect);
-            g.DrawEllipse(Pens.Silver, rect);
-        }
+        //public override void Draw(Graphics g)
+        //{
+        //    var rect = Rect;
+        //    g.FillEllipse(Brushes.Blue, rect);
+        //    g.DrawEllipse(Pens.Silver, rect);
+        //}
 
         public override void Update()
         {
@@ -46,7 +47,7 @@ namespace AsteroidGame.VisualObjects
             {
                 _Position = new Point(_Position.X, _Position.Y - _Direction.Y);
             }
-            
+
         }
 
         public void MoveDown(int Offset = 1)
@@ -54,6 +55,20 @@ namespace AsteroidGame.VisualObjects
             if (_Position.Y - _Size.Height < Game.Height)
             {
                 _Position = new Point(_Position.X, _Position.Y + _Direction.Y);
+            }
+        }
+        public void MoveRight()
+        {
+            if (_Position.X - _Size.Width < Game.Width)
+            {
+                _Position = new Point(_Position.X + _Direction.X, _Position.Y);
+            }
+        }
+        public void MoveLeft()
+        {
+            if (_Position.X > 0)
+            {
+                _Position = new Point(_Position.X - _Direction.X, _Position.Y);
             }
         }
 
@@ -66,5 +81,6 @@ namespace AsteroidGame.VisualObjects
             }
             return is_collision;
         }
+
     }
 }

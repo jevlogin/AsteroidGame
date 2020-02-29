@@ -34,7 +34,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            _Position = new Point(_Position.X + 10, _Position.Y);
+            _Position = new Point(_Position.X + 20, _Position.Y);   //  увеличивая константу, можно ускорить полет пули
 
         }
     }

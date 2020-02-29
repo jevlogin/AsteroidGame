@@ -55,7 +55,7 @@ namespace AsteroidGame
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    __Bullet = new Bullet(__Ship.Position.Y);
+                    __Bullet = new Bullet(__Ship.Position.Y + 5);
                     break;
                 case Keys.Up:
                     __Ship.MoveUp();
@@ -63,12 +63,12 @@ namespace AsteroidGame
                 case Keys.Down:
                     __Ship.MoveDown();
                     break;
-                //case Keys.Right:
-                //    __Ship.MoveRight(); //  не забыть дописать методы
-                //    break;
-                //case Keys.Left:
-                //    __Ship.MoveLeft();  //  не забыть дописать методы
-                //    break;
+                case Keys.Right:
+                    __Ship.MoveRight(); //  не забыть дописать методы
+                    break;
+                case Keys.Left:
+                    __Ship.MoveLeft();  //  не забыть дописать методы
+                    break;
             }
         }
 
@@ -79,7 +79,6 @@ namespace AsteroidGame
         }
 
         private static SpaceShip __Ship;
-
         private static VisualObject[] __GameObjects;
         private static Bullet __Bullet;
         public static void Load()
@@ -99,7 +98,7 @@ namespace AsteroidGame
 
 
             const int asteroids_count = 20;
-            const int asteroid_size = 25;
+            const int asteroid_size = 30;
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
             {
@@ -109,7 +108,7 @@ namespace AsteroidGame
             }
 
             __GameObjects = game_objects.ToArray();
-            __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 10);
+            __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
             __Ship.ShipDestroyed += OnShipDestroyed;
         }
 
@@ -137,8 +136,11 @@ namespace AsteroidGame
 
             __Bullet?.Draw(g);
             __Ship.Draw(g);
+            var score_ship = $"Score: {__Ship.Score}";
 
-            g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.White, 10, 10);
+            g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Green, 10, 10);
+            g.DrawString(score_ship, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Yellow, Game.Width - score_ship.Length*20, 10);
+
             __Buffer.Render();
         }
 
