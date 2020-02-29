@@ -81,15 +81,19 @@ namespace TestConsole
                 string_list.Add($"Message {i + 22}");
             }
             string_list.Sort(); //  странно после сортировки индекс изменяется на 687 до этого 690
-            string_list.Sort((s1, s2) => StringComparer.Ordinal.Compare(s2, s1));   //  перевернули список
+            //string_list.Sort((s1, s2) => StringComparer.Ordinal.Compare(s2, s1));   //  перевернули список
 
             //var strings_array = string_list.ToArray();
-            var strings_array = new string[string_list.Count];
-            string_list.CopyTo(strings_array, 0);
+            //var strings_array = new string[string_list.Count];
+            //string_list.CopyTo(strings_array, 0);
 
             var str_value_index = string_list.BinarySearch("Message 712");
-             
+
+            string_list.ForEach(PrintString);
+
             Console.ReadKey();
         }
+
+        private static void PrintString(string str) => Console.WriteLine($"Str = {str}");
     }
 }
