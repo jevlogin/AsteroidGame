@@ -59,11 +59,13 @@ namespace TestConsole
             {
                 students_to_add[i] = new Student();
             }
-
             //  Добавление массива  в список одним пакетом. Увеличение быстродействия. Всегда проверять возможно ли такое?
             students.AddRange(students_to_add);
 
             students.Capacity = students.Count; // выравнивание кол-ва элементов для сохранения памяти в оперативной памяти
+
+            //  список будет создан на основе любого перечисления
+            var new_students_list = new List<Student>(students_to_add);
 
             Console.ReadKey();
         }
