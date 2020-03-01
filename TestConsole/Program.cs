@@ -92,9 +92,12 @@ namespace TestConsole
 
             const string data_dir_name = "TestData";
 
-            var total_lines = DataDirectoryProcessor.GetTotalLinesCountStack(data_dir_name);
+            //var total_lines = DataDirectoryProcessor.GetTotalLinesCountStack(data_dir_name);
+            //var total_lines = DataDirectoryProcessor.GetTotalLinesCountQueue(data_dir_name);
+            //Console.WriteLine($"Число строк = {total_lines}");
+            //  Список Стек и очередь все использует интерфейс ПЕРЕЧИСЛЕНИЕ IEnumerable
 
-            Console.WriteLine($"Число строк = {total_lines}");
+            
 
             Console.ReadKey();
         }
