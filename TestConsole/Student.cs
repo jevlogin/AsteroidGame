@@ -9,10 +9,14 @@ namespace TestConsole
     class Student : IComparable<Student>, IEquatable<Student>, IEquatable<string>, ICloneable<Student>
     /*IComparable*/
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Patronimyc { get; set; }
 
         public List<int> Rating { get; set; } = new List<int>();
 
+        public int GroupId { get; set; }
         //  Подсчет среднего бала автоматическим способом через IEnumerator
         public double AverageRating /*=> Rating.Average();*/
         {
@@ -27,7 +31,7 @@ namespace TestConsole
         {
             return new Student
             {
-                Name = Name,
+                FirstName = FirstName,
                 Rating = new List<int>(Rating)
             };
         }
@@ -56,13 +60,13 @@ namespace TestConsole
             }
         }
 
-        public bool Equals(Student other) => other?.Name == Name;
+        public bool Equals(Student other) => other?.FirstName == FirstName;
 
         public bool Equals(string other)
         {
-            return Name == other;
+            return FirstName == other;
         }
 
-        public override string ToString() => $"{Name}: {AverageRating:0.##}";
+        public override string ToString() => $"{FirstName}: {AverageRating:0.##}";
     }
 }

@@ -126,6 +126,7 @@ namespace TestConsole
             str_int_dict["123"] = 7;
             str_int_dict["123"] = 123;
 
+            StudentsTests.Run();
 
             Console.ReadKey();
         }

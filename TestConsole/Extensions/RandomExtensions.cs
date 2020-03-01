@@ -14,6 +14,7 @@ namespace TestConsole.Extensions
             {
                 //  Ключевое слово yield позволяет преобразовать метод GetRandomIntValues(Random rnd, int Count, int Min, int Max) 
                 //  в специальный класс
+                /*  А вот теперь вопрос, а зачем это надо?  */
                 yield return rnd.Next(Min, Max);
             }
         }
