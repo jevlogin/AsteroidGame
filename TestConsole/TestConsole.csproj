@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataDirectoryProcessor.cs" />
+    <Compile Include="Dekanat.cs" />
     <Compile Include="Extensions\RandomExtensions.cs" />
     <Compile Include="Gamer.cs" />
     <Compile Include="ICloneable.cs" />
