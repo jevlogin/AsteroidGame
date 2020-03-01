@@ -92,7 +92,7 @@ namespace TestConsole
 
             const string data_dir_name = "TestData";
 
-            var total_lines = DataDirectoryProcessor.GetTotalLinesCount(data_dir_name);
+            var total_lines = DataDirectoryProcessor.GetTotalLinesCountStack(data_dir_name);
 
             Console.WriteLine($"Число строк = {total_lines}");
 
