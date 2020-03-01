@@ -44,6 +44,11 @@ namespace TestConsole
 
                 dekanat.Add(student);
             }
+
+            //  перечисления студентов. можно работать с перечислениями.
+            IEnumerable<Student> students_enum = dekanat;
+            //   поддерживает запросы к себе. Оба интерфейсы.
+            IQueryable<Student> students_query = students_enum.AsQueryable();
         }
     }
 }
