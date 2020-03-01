@@ -67,6 +67,6 @@ namespace TestConsole
             return FirstName == other;
         }
 
-        public override string ToString() => $"{FirstName}: {AverageRating:0.##}";
+        public override string ToString() => $"[{Id}] - {LastName} {FirstName} {Patronimyc}: {AverageRating:0.##} - Группа {GroupId}";
     }
 }
