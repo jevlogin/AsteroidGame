@@ -178,6 +178,8 @@ namespace AsteroidGame
 
 
             var bullets_to_remove = new List<Bullet>();
+            var asteroids_to_remove = new List<Asteroid>(); // добавили список на удаление астероидов
+
             foreach (var bullet in __Bullets)
             {
                 bullet.Update();
@@ -186,11 +188,42 @@ namespace AsteroidGame
                     bullets_to_remove.Add(bullet);
                 }
             }
-            //__Bullet?.Update();
 
-            for (int i = 0; i < __GameObjects.Length; i++)
+            #region старый код
+            //__Bullet?.Update();
+            //for (int i = 0; i < __GameObjects.Length; i++)
+            //{
+            //    var obj = __GameObjects[i];
+            //    if (obj is ICollision)
+            //    {
+            //        var collision_object = (ICollision)obj;
+            //        __Ship.CheckCollision(collision_object);
+
+            //        foreach (var bullet in __Bullets.ToArray())
+            //        {
+            //            if (bullet.CheckCollision(collision_object))
+            //            {
+            //                //  сперва добавляем все элементы которые хотим удалить в промежуточный список,
+            //                //  а уже затем удаляем список в другом цикле
+            //                bullets_to_remove.Add(bullet);
+            //                __GameObjects[i] = null;
+            //                //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
+            //            }
+            //        }
+
+            //        //TODO  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
+            //        if (__Ship != null && __Ship.CheckCollision(collision_object))
+            //        {
+            //            //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
+            //            __GameObjects[i] = null;
+            //        }
+            //    }
+            //}
+            #endregion
+
+            for (int i = 0; i < __AsteroidList.Count; i++)
             {
-                var obj = __GameObjects[i];
+                var obj = __AsteroidList[i];
                 if (obj is ICollision)
                 {
                     var collision_object = (ICollision)obj;
@@ -203,7 +236,7 @@ namespace AsteroidGame
                             //  сперва добавляем все элементы которые хотим удалить в промежуточный список,
                             //  а уже затем удаляем список в другом цикле
                             bullets_to_remove.Add(bullet);
-                            __GameObjects[i] = null;
+                            __AsteroidList[i] = null;
                             //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
                         }
                     }
