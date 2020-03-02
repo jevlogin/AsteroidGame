@@ -55,7 +55,7 @@ namespace AsteroidGame
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10)); 
+                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10));
                     // добавили пулю посиция относительно корабля координаты __Ship.Position.X __Ship.Position.Y
                     //TODO  Корректировать положение пули будем тут
                     break;
@@ -83,6 +83,7 @@ namespace AsteroidGame
         private static SpaceShip __Ship;
         private static VisualObject[] __GameObjects;
         private static List<VisualObject> __AsteroidList;
+        public static Random rnd = new Random();
         //TODO что-то пока не получается создать коллекцию
 
         //private static Bullet __Bullet;
@@ -91,8 +92,8 @@ namespace AsteroidGame
         public static void Load()
         {
             var game_objects = new List<VisualObject>();
-            var game_asteroids = new List<VisualObject>();
-            var rnd = new Random();
+            __AsteroidList = new List<VisualObject>();
+            
 
             const int star_count = 100;
             const int star_size = 5;
@@ -104,7 +105,17 @@ namespace AsteroidGame
                     star_size));
             }
 
+            AsteroidListCreate(__AsteroidList, rnd);
 
+            __GameObjects = game_objects.ToArray();
+            __AsteroidList = __AsteroidList.ToList();
+
+            __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
+            __Ship.ShipDestroyed += OnShipDestroyed;
+        }
+
+        private static void AsteroidListCreate(List<VisualObject> game_asteroids, Random rnd)
+        {
             const int asteroids_count = 20;
             const int asteroid_size = 30;
             const int asteroid_max_speed = 20;
@@ -114,12 +125,6 @@ namespace AsteroidGame
                     rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
                     asteroid_size));
             }
-
-            __GameObjects = game_objects.ToArray();
-            __AsteroidList = game_asteroids.ToList();
-
-            __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
-            __Ship.ShipDestroyed += OnShipDestroyed;
         }
 
         private static void OnShipDestroyed(object sender, EventArgs e)
@@ -159,7 +164,7 @@ namespace AsteroidGame
             var score_ship = $"Score: {__Ship.Score}";
 
             g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Green, 10, 10);
-            g.DrawString(score_ship, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Yellow, Game.Width - score_ship.Length*20, 10);
+            g.DrawString(score_ship, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Yellow, Game.Width - score_ship.Length * 20, 10);
 
             __Buffer.Render();
         }
@@ -175,7 +180,10 @@ namespace AsteroidGame
             {
                 asteroid?.Update();
             }
-
+            if (__AsteroidList.Count <= 0)
+            {
+                AsteroidListCreate(__AsteroidList,  rnd);
+            }
 
             var bullets_to_remove = new List<Bullet>();
             var asteroids_to_remove = new List<Asteroid>(); // добавили список на удаление астероидов
@@ -236,8 +244,10 @@ namespace AsteroidGame
                             //  сперва добавляем все элементы которые хотим удалить в промежуточный список,
                             //  а уже затем удаляем список в другом цикле
                             bullets_to_remove.Add(bullet);
-                            __AsteroidList[i] = null;
-                            //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
+
+                            asteroids_to_remove.Add((Asteroid)obj); //  пришлось кастануть, надеюсь поможет
+                            __AsteroidList.Remove(obj);   //  ну или так ))) 
+                            //__AsteroidList[i] = null;   //  ну или так ))) 
                         }
                     }
 
@@ -245,7 +255,8 @@ namespace AsteroidGame
                     if (__Ship != null && __Ship.CheckCollision(collision_object))
                     {
                         //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
-                        __GameObjects[i] = null;
+                        //TODO  При столкновении с кораблем астероид взрывается
+                        __AsteroidList.Remove(obj);
                     }
                 }
             }
@@ -255,6 +266,11 @@ namespace AsteroidGame
             {
                 __Bullets.Remove(bullet);
             }
+
+            //foreach (var asteroid in bullets_to_remove)
+            //{
+            //    __Bullets.Remove(asteroid);
+            //}
         }
     }
 }
