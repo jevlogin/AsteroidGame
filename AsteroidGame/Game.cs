@@ -93,7 +93,7 @@ namespace AsteroidGame
         {
             var game_objects = new List<VisualObject>();
             __AsteroidList = new List<VisualObject>();
-            
+
 
             const int star_count = 100;
             const int star_size = 5;
@@ -116,7 +116,7 @@ namespace AsteroidGame
 
         private static void AsteroidListCreate(List<VisualObject> game_asteroids, Random rnd)
         {
-            const int asteroids_count = 20;
+            int asteroids_count = 5 * Level.LevelGame;
             const int asteroid_size = 30;
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
@@ -165,6 +165,7 @@ namespace AsteroidGame
 
             g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Green, 10, 10);
             g.DrawString(score_ship, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Yellow, Game.Width - score_ship.Length * 20, 10);
+            g.DrawString(Level.NameLevelGame, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Red, (Game.Width / 2 - Level.NameLevelGame.Length * 5), 10);
 
             __Buffer.Render();
         }
@@ -182,7 +183,11 @@ namespace AsteroidGame
             }
             if (__AsteroidList.Count <= 0)
             {
-                AsteroidListCreate(__AsteroidList,  rnd);
+                //TODO При убийстве всех астероидов будет прибавляться 1000 очков и 100 ХП
+                __Ship.Score += 1000;
+                __Ship.Energy += 50;
+                Level.LevelGame++;
+                AsteroidListCreate(__AsteroidList, rnd);
             }
 
             var bullets_to_remove = new List<Bullet>();
@@ -196,38 +201,6 @@ namespace AsteroidGame
                     bullets_to_remove.Add(bullet);
                 }
             }
-
-            #region старый код
-            //__Bullet?.Update();
-            //for (int i = 0; i < __GameObjects.Length; i++)
-            //{
-            //    var obj = __GameObjects[i];
-            //    if (obj is ICollision)
-            //    {
-            //        var collision_object = (ICollision)obj;
-            //        __Ship.CheckCollision(collision_object);
-
-            //        foreach (var bullet in __Bullets.ToArray())
-            //        {
-            //            if (bullet.CheckCollision(collision_object))
-            //            {
-            //                //  сперва добавляем все элементы которые хотим удалить в промежуточный список,
-            //                //  а уже затем удаляем список в другом цикле
-            //                bullets_to_remove.Add(bullet);
-            //                __GameObjects[i] = null;
-            //                //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
-            //            }
-            //        }
-
-            //        //TODO  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
-            //        if (__Ship != null && __Ship.CheckCollision(collision_object))
-            //        {
-            //            //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
-            //            __GameObjects[i] = null;
-            //        }
-            //    }
-            //}
-            #endregion
 
             for (int i = 0; i < __AsteroidList.Count; i++)
             {
@@ -245,9 +218,12 @@ namespace AsteroidGame
                             //  а уже затем удаляем список в другом цикле
                             bullets_to_remove.Add(bullet);
 
-                            asteroids_to_remove.Add((Asteroid)obj); //  пришлось кастануть, надеюсь поможет
                             __AsteroidList.Remove(obj);   //  ну или так ))) 
                             //__AsteroidList[i] = null;   //  ну или так ))) 
+
+                            //TODO при попадании выстрелом в астероид будут начисляться очки
+                            __Ship.Score += 100;
+
                         }
                     }
 
@@ -257,6 +233,8 @@ namespace AsteroidGame
                         //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
                         //TODO  При столкновении с кораблем астероид взрывается
                         __AsteroidList.Remove(obj);
+                        //TODO При столкновении корабля с астероидами отнимаются не только жизни, но и очки
+                        __Ship.Score -= 50;
                     }
                 }
             }
@@ -266,11 +244,6 @@ namespace AsteroidGame
             {
                 __Bullets.Remove(bullet);
             }
-
-            //foreach (var asteroid in bullets_to_remove)
-            //{
-            //    __Bullets.Remove(asteroid);
-            //}
         }
     }
 }

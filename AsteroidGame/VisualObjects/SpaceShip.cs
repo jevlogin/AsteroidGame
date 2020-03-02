@@ -11,11 +11,9 @@ namespace AsteroidGame.VisualObjects
     public class SpaceShip : ImageObject, ICollision
     {
         public event EventHandler ShipDestroyed;
-        public event EventHandler ShipScores;
 
-        private int _Energy = 100;
         public int Score { get; set; } = 0;
-        public int Energy => _Energy;
+        public int Energy { get; set; } = 100;
 
         public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize * 2, ImageSize), Properties.Resources.SpaceShip1)
         {
@@ -30,8 +28,8 @@ namespace AsteroidGame.VisualObjects
         }
         public void ChangeEnergy(int Delta)
         {
-            _Energy += Delta;
-            if (_Energy < 0)
+            Energy += Delta;
+            if (Energy < 0)
             {
                 ShipDestroyed?.Invoke(this, EventArgs.Empty);
             }
