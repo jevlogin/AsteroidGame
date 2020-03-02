@@ -85,6 +85,13 @@ namespace TestConsole
             //  подсчет хорошистов и лузеров
             var best_count = best_students.Count();
             var loser_count = loser_students.Count();
+
+            var names_length = file_with_names.GetLines()
+                .Select(str => str.Split(' '))  //  разделили по пробелу
+                .Select(strs => new KeyValuePair<string, int>(strs[1], strs[1].Length)) //  выбрали второй элемент (имя)
+                .Where(v => v.Value > 4)    //  выбрали те что больше 4
+                .OrderBy(v => v.Value)  //  отсортировали
+                .ToArray(); //  добавили в массив
         }
     }
 }
