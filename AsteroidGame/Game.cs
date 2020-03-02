@@ -55,9 +55,8 @@ namespace AsteroidGame
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    //__Bullet = new Bullet(__Ship.Position.Y + 5);
-                    //__Bullets.Add(new Bullet(__Ship.Position.Y)); // добавили пулю посиция относительно корабля координаты __Ship.Position.Y
-                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10)); // добавили пулю посиция относительно корабля координаты __Ship.Position.X__Ship.Position.Y
+                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10)); 
+                    // добавили пулю посиция относительно корабля координаты __Ship.Position.X __Ship.Position.Y
                     //TODO  Корректировать положение пули будем тут
                     break;
                 case Keys.Up:
@@ -83,12 +82,16 @@ namespace AsteroidGame
 
         private static SpaceShip __Ship;
         private static VisualObject[] __GameObjects;
+        private static List<VisualObject> __AsteroidList;
+        //TODO что-то пока не получается создать коллекцию
+
         //private static Bullet __Bullet;
         private static List<Bullet> __Bullets = new List<Bullet>(); // создали список пуль
 
         public static void Load()
         {
             var game_objects = new List<VisualObject>();
+            var game_asteroids = new List<VisualObject>();
             var rnd = new Random();
 
             const int star_count = 100;
@@ -107,12 +110,14 @@ namespace AsteroidGame
             const int asteroid_max_speed = 20;
             for (int i = 0; i < asteroids_count; i++)
             {
-                game_objects.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
                     rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
                     asteroid_size));
             }
 
             __GameObjects = game_objects.ToArray();
+            __AsteroidList = game_asteroids.ToList();
+
             __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
             __Ship.ShipDestroyed += OnShipDestroyed;
         }
@@ -138,6 +143,10 @@ namespace AsteroidGame
             {
                 visual_object?.Draw(g);
             }
+            foreach (var asteroid in __AsteroidList)
+            {
+                asteroid?.Draw(g);
+            }
 
             //__Bullet?.Draw(g);
 
@@ -162,6 +171,11 @@ namespace AsteroidGame
             {
                 visual_object?.Update();
             }
+            foreach (var asteroid in __AsteroidList)
+            {
+                asteroid?.Update();
+            }
+
 
             var bullets_to_remove = new List<Bullet>();
             foreach (var bullet in __Bullets)
