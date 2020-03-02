@@ -22,7 +22,6 @@ namespace TestConsole
             {
                 dekanat.Add(new StudentsGroup { Name = $"Группа {i + 1}" });
             }
-
             foreach (var line in file_with_names.GetLines())
             {
                 if (string.IsNullOrWhiteSpace(line))
@@ -86,12 +85,34 @@ namespace TestConsole
             var best_count = best_students.Count();
             var loser_count = loser_students.Count();
 
+            #region .Select Where OrderBy Sum
+            /*
+            //  var автоматическая типизация
             var names_length = file_with_names.GetLines()
                 .Select(str => str.Split(' '))  //  разделили по пробелу
                 .Select(strs => new KeyValuePair<string, int>(strs[1], strs[1].Length)) //  выбрали второй элемент (имя)
-                .Where(v => v.Value > 4)    //  выбрали те что больше 4
+                .Where(v => v.Value > 4)    //  выбрали те что больше 4 фильтрация
                 .OrderBy(v => v.Value)  //  отсортировали
                 .Sum(v => v.Key.Length);
+            */
+            #endregion
+
+            IEnumerable<Student> students = dekanat;
+            IEnumerable<StudentsGroup> groups = dekanat.Groups;
+
+            var sudents_group = dekanat.Join(
+                groups,
+                stud => stud.GroupId,
+                group => group.Id,
+                (stud, group) => new { Student = stud, Group = group }
+                );
+
+            foreach (var students_group in sudents_group)
+            {
+                Console.WriteLine($"{students_group.Student} == {students_group.Group}");
+            }
+
+            //  2:31:19
         }
     }
 }
