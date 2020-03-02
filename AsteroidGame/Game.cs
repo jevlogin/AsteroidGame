@@ -181,13 +181,15 @@ namespace AsteroidGame
                     var collision_object = (ICollision)obj;
                     __Ship.CheckCollision(collision_object);
 
-                    foreach (var bullet in __Bullets)
+                    foreach (var bullet in __Bullets.ToArray())
                     {
                         if (bullet.CheckCollision(collision_object))
                         {
+                            //  сперва добавляем все элементы которые хотим удалить в промежуточный список,
+                            //  а уже затем удаляем список в другом цикле
                             bullets_to_remove.Add(bullet);
                             __GameObjects[i] = null;
-                            MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
+                            //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
                         }
                     }
 
@@ -199,6 +201,8 @@ namespace AsteroidGame
                     }
                 }
             }
+
+            //  Метод удаления и использованием linq мне не понравился, так как там не исчезали пули.
             foreach (var bullet in bullets_to_remove)
             {
                 __Bullets.Remove(bullet);
