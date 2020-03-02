@@ -100,19 +100,20 @@ namespace TestConsole
             IEnumerable<Student> students = dekanat;
             IEnumerable<StudentsGroup> groups = dekanat.Groups;
 
-            var sudents_group = dekanat.Join(
+            var students_groups = dekanat.Join(
                 groups,
                 stud => stud.GroupId,
                 group => group.Id,
-                (stud, group) => new { Student = stud, Group = group }
-                );
+                (stud, group) => new { Student = stud, Group = group })
+                .Where(s => s.Student.AverageRating > 4);
 
-            foreach (var students_group in sudents_group)
+            foreach (var students_group in students_groups)
             {
                 Console.WriteLine($"{students_group.Student} == {students_group.Group}");
             }
 
-            //  2:31:19
+            var students_group_dict = students_groups.GroupBy(g => g.Group.Name)
+                .ToDictionary(g => g.Key, g => g.Select(v => v.Student.LastName).ToArray());
         }
     }
 }
