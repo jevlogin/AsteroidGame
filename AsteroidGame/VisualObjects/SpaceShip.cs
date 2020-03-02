@@ -13,7 +13,7 @@ namespace AsteroidGame.VisualObjects
         public event EventHandler ShipDestroyed;
 
         public int Score { get; set; } = 0;
-        public int Energy { get; set; } = 100;
+        public int Energy { get; set; } = 10;
 
         public SpaceShip(Point Position, Point Direction, int ImageSize) : base(Position, Direction, new Size(ImageSize * 2, ImageSize), Properties.Resources.SpaceShip1)
         {

@@ -71,6 +71,13 @@ namespace AsteroidGame
                 case Keys.Left:
                     __Ship.MoveLeft();  //  не забыть дописать методы
                     break;
+                case Keys.F1:
+                    if (__Ship.Score >= 1000)
+                    {
+                        __Ship.Score -= 1000;
+                        __Ship.Energy += 50;
+                    }
+                    break;
             }
         }
 
@@ -131,7 +138,15 @@ namespace AsteroidGame
         {
             __Timer.Stop();
             __Buffer.Graphics.Clear(Color.DarkBlue);
-            __Buffer.Graphics.DrawString("Game Over", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
+            if (Level.LevelGame < 5)
+            {
+                __Buffer.Graphics.Clear(Color.Red);
+                __Buffer.Graphics.DrawString("Game Over!\nYou\nFucking\nLooser!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Yellow, 100, 100);
+            }
+            else
+            {
+                __Buffer.Graphics.DrawString("Game Over", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
+            }
             __Buffer.Render();
         }
 
@@ -166,6 +181,7 @@ namespace AsteroidGame
             g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Green, 10, 10);
             g.DrawString(score_ship, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Yellow, Game.Width - score_ship.Length * 20, 10);
             g.DrawString(Level.NameLevelGame, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.Red, (Game.Width / 2 - Level.NameLevelGame.Length * 5), 10);
+            g.DrawString($"Press F1 to BUY Energy Ship\n 1000 очков - 50ХП", new Font(FontFamily.GenericSansSerif, 8), Brushes.LightPink, Width - 200, Height - 100);
 
             __Buffer.Render();
         }
@@ -184,8 +200,8 @@ namespace AsteroidGame
             if (__AsteroidList.Count <= 0)
             {
                 //TODO При убийстве всех астероидов будет прибавляться 1000 очков и 100 ХП
-                __Ship.Score += 1000;
-                __Ship.Energy += 50;
+                __Ship.Score += 300;
+                __Ship.Energy += 30;
                 Level.LevelGame++;
                 AsteroidListCreate(__AsteroidList, rnd);
             }
