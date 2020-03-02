@@ -56,7 +56,8 @@ namespace AsteroidGame
             {
                 case Keys.ControlKey:
                     //__Bullet = new Bullet(__Ship.Position.Y + 5);
-                    __Bullets.Add(new Bullet(__Ship.Position.Y)); // добавили пулю посиция относительно корабля координаты __Ship.Position.Y
+                    //__Bullets.Add(new Bullet(__Ship.Position.Y)); // добавили пулю посиция относительно корабля координаты __Ship.Position.Y
+                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10)); // добавили пулю посиция относительно корабля координаты __Ship.Position.X__Ship.Position.Y
                     //TODO  Корректировать положение пули будем тут
                     break;
                 case Keys.Up:
