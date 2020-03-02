@@ -45,19 +45,46 @@ namespace TestConsole
                 dekanat.Add(student);
             }
 
+            #region Enumerable.Range(1, 100)
+            /*
             //  перечисления студентов. можно работать с перечислениями.
             IEnumerable<Student> students_enum = dekanat;
             //   поддерживает запросы к себе. Оба интерфейсы.
             IQueryable<Student> students_query = students_enum.AsQueryable();
 
+            //  равносильные записи. Но основное предназначение Enumerable.Range() другое
             foreach (var i in Enumerable.Range(0, 100))
             {
             }
             for (int i = 0; i < 100; i++)
             {
             }
-            //  равносильные записи. Но основное предназначение Enumerable.Range() другое
 
+            var simple_students = Enumerable.Range(1, 100)
+                .Select(i => new Student { FirstName = $"Student {i}" })
+                .ToArray() ;   //  получили объект перечисления студентов
+
+            foreach (var students in simple_students)
+            {
+                Console.WriteLine(students);
+            }
+            */
+            #endregion
+
+            var best_students = dekanat.Where(student => student.AverageRating > 4);
+            var loser_students = dekanat.Where(student => student.AverageRating < 4);
+            foreach (var best_student in best_students)
+            {
+                Console.WriteLine(best_student);
+            }
+            foreach (var losers in loser_students)
+            {
+                Console.WriteLine(losers);
+            }
+
+            //  подсчет хорошистов и лузеров
+            var best_count = best_students.Count();
+            var loser_count = loser_students.Count();
         }
     }
 }
