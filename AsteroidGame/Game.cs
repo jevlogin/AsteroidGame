@@ -55,7 +55,9 @@ namespace AsteroidGame
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    __Bullet = new Bullet(__Ship.Position.Y + 5);
+                    //__Bullet = new Bullet(__Ship.Position.Y + 5);
+                    __Bullets.Add(new Bullet(__Ship.Position.Y)); // добавили пулю посиция относительно корабля координаты __Ship.Position.Y
+                    //TODO  Корректировать положение пули будем тут
                     break;
                 case Keys.Up:
                     __Ship.MoveUp();
@@ -80,7 +82,9 @@ namespace AsteroidGame
 
         private static SpaceShip __Ship;
         private static VisualObject[] __GameObjects;
-        private static Bullet __Bullet;
+        //private static Bullet __Bullet;
+        private static List<Bullet> __Bullets = new List<Bullet>(); // создали список пуль
+
         public static void Load()
         {
             var game_objects = new List<VisualObject>();
@@ -134,7 +138,13 @@ namespace AsteroidGame
                 visual_object?.Draw(g);
             }
 
-            __Bullet?.Draw(g);
+            //__Bullet?.Draw(g);
+
+            foreach (var bullet in __Bullets)
+            {
+                bullet.Draw(g); //TODO - ЧТО ТАКОЕ g?? нужно объяснение прямо как для тупых ))
+            }
+
             __Ship.Draw(g);
             var score_ship = $"Score: {__Ship.Score}";
 
@@ -152,7 +162,17 @@ namespace AsteroidGame
                 visual_object?.Update();
             }
 
-            __Bullet?.Update();
+            var bullets_to_remove = new List<Bullet>();
+            foreach (var bullet in __Bullets)
+            {
+                bullet.Update();
+                if (bullet.Position.X > Width)
+                {
+                    bullets_to_remove.Add(bullet);
+                }
+            }
+            //__Bullet?.Update();
+
             for (int i = 0; i < __GameObjects.Length; i++)
             {
                 var obj = __GameObjects[i];
@@ -160,19 +180,28 @@ namespace AsteroidGame
                 {
                     var collision_object = (ICollision)obj;
                     __Ship.CheckCollision(collision_object);
-                    if (__Bullet != null && __Bullet.CheckCollision(collision_object))
+
+                    foreach (var bullet in __Bullets)
                     {
-                        __Bullet = null;
-                        __GameObjects[i] = null;
-                        //MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //   Изменение оповещения
+                        if (bullet.CheckCollision(collision_object))
+                        {
+                            bullets_to_remove.Add(bullet);
+                            __GameObjects[i] = null;
+                            MessageBox.Show($"Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK); //TODO оповещение о столкновении пули с астероидом
+                        }
                     }
-                    //  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
+
+                    //TODO  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
                     if (__Ship != null && __Ship.CheckCollision(collision_object))
                     {
-                        //  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
+                        //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
                         __GameObjects[i] = null;
                     }
                 }
+            }
+            foreach (var bullet in bullets_to_remove)
+            {
+                __Bullets.Remove(bullet);
             }
         }
     }
