@@ -28,6 +28,8 @@ namespace AsteroidGame
 
         private static Timer __Timer;
 
+        public static Action<string> Log { get; set; }
+
         public static int Width { get; set; }
         public static int Height { get; set; }
 
@@ -48,6 +50,14 @@ namespace AsteroidGame
             __Timer = timer;
 
             form.KeyDown += OnFormKeyDown;
+
+            /*
+            Log("Выполнена Инициализация.");    
+                Можно было бы и так написать. 
+                Но внутри метода может быть пустая ссылка. 
+                Тем самым мы защищаем себя вызовом метода Invoke()
+            */
+            Log?.Invoke("Выполнена Инициализация.");
         }
 
         private static int __KeyPressedF1;
@@ -170,7 +180,7 @@ namespace AsteroidGame
 
             foreach (var bullet in __Bullets)
             {
-                bullet.Draw(g); 
+                bullet.Draw(g);
             }
 
             __Ship.Draw(g);
