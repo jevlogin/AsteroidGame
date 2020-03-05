@@ -64,6 +64,7 @@ namespace AsteroidGame
                     __KeyPressedCtrl++;
                     break;
                 case Keys.Up:
+                    __KeyPressedUp++;
                     break;
                 case Keys.Down:
                     __KeyPressedDown++;
@@ -167,11 +168,9 @@ namespace AsteroidGame
                 asteroid?.Draw(g);
             }
 
-            //__Bullet?.Draw(g);
-
             foreach (var bullet in __Bullets)
             {
-                bullet.Draw(g); //TODO - ЧТО ТАКОЕ g?? нужно объяснение прямо как для тупых ))
+                bullet.Draw(g); 
             }
 
             __Ship.Draw(g);
@@ -283,8 +282,6 @@ namespace AsteroidGame
                             bullets_to_remove.Add(bullet);
 
                             asteroids_to_remove.Add((Asteroid)collision_object);    //TODO И что мне делать двойное кастование?
-                            //__AsteroidList.Remove(obj);   //  ну или так ))) 
-
                             //TODO при попадании выстрелом в астероид будут начисляться очки
                             __Ship.Score += 100;
 
@@ -294,9 +291,9 @@ namespace AsteroidGame
                     //TODO  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
                     if (__Ship != null && __Ship.CheckCollision(collision_object))
                     {
-                        //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
                         //TODO  При столкновении с кораблем астероид взрывается
-                        __AsteroidList.Remove(obj);
+                        //__AsteroidList.Remove(obj);
+                        asteroids_to_remove.Add((Asteroid)collision_object);    //TODO И что мне делать двойное кастование?
                         //TODO При столкновении корабля с астероидами отнимаются не только жизни, но и очки
                         __Ship.Score -= 50;
                     }
