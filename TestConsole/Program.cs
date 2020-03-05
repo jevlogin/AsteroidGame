@@ -32,8 +32,8 @@ namespace TestConsole
             {
                 numbers_counts2[i] = 0;
             }
-            
-            
+
+
 
             for (int i = 0; i < numbers_count; i++)
             {
@@ -55,8 +55,35 @@ namespace TestConsole
                 #endregion
 
             }
+
+            var count3 = GetItemCounts(numbers);
             
+            var count4 = numbers.GroupBy(n => n)
+                .Select(group => new { vaue = group.Key, count = group.Count() })
+                .OrderBy(v => v.vaue)
+                .ToArray();
+            //  Словарь
+            var count5 = numbers.GroupBy(n => n)
+                .ToDictionary(group => group.Key, group => group.Count());
+
             Console.ReadKey();
+        }
+
+        private static Dictionary<T, int> GetItemCounts<T>(IEnumerable<T> items)
+        {
+            var result = new Dictionary<T, int>();
+            foreach (var item in items)
+            {
+                if (result.ContainsKey(item))
+                {
+                    result[item]++;
+                }
+                else
+                {
+                    result.Add(item, 1);
+                }
+            }
+            return result;
         }
     }
 }
