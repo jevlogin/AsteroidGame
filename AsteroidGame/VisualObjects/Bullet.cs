@@ -13,7 +13,13 @@ namespace AsteroidGame.VisualObjects
         //  Если я правильно поянл, это размеры снаряда
         private const int __BulletSizeX = 30;
         private const int __BulletSizeY = 10;
+        private int v;
+
         public Bullet(int Position) : base(new Point(0, Position), Point.Empty, new Size(__BulletSizeX, __BulletSizeY), Properties.Resources.Bullet1)
+        {
+        }
+
+        public Bullet(int PositionX, int PositionY) : base(new Point(PositionX, PositionY), Point.Empty, new Size(__BulletSizeX, __BulletSizeY), Properties.Resources.Bullet1)
         {
         }
 

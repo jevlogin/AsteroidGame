@@ -1,11 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestConsole.Loggers;
-using TestConsole.Extensions;
 
 /*
  * Классы - это ссылочный тип данных.
@@ -17,160 +13,124 @@ namespace TestConsole
 {
     static class Program
     {
-        public static List<int> GetRandomRatings(Random rnd, int CountMin, int CountMax)
-        {
-            var count = rnd.Next(CountMin, CountMax + 1);
-            var result = new List<int>(count);
-            for (int i = 0; i < count; i++)
-            {
-                result.Add(rnd.Next(2, 6));
-            }
-            return result;
-        }
-
-        private static void OnStudentAdd(Student Student)
-        {
-            Console.WriteLine("Студент {0} добавлен", Student.Name);
-        }
-
-        private static void OnStudentRemoved(Student Student)
-        {
-            Console.WriteLine("Студент {0} исключен", Student.Name);
-        }
-        private static void GoToVoenkomat(Student Student)
-        {
-            Console.WriteLine("Студент {0} отправлен служить в армию", Student.Name);
-        }
-
         static void Main(string[] args)
         {
-            var dekanat = new Dekanat();
-            //dekanat.SubscribeToAdd(OnStudentAdd);
-            dekanat.SubscribeToRemove(OnStudentRemoved);
-            dekanat.SubscribeToRemove(GoToVoenkomat);
-            //dekanat.SubscribeToAdd(std => Console.WriteLine("Еще раз поздравляем студента {0} с поступлением", std.Name));
+            //var simple_array_list = new ArrayList();
 
-            dekanat.NewItemAdded += OnStudentAdd;
-            dekanat.ExcelentStudent += excelent_student => Console.WriteLine("!!! {0} !!!", excelent_student);
+            //simple_array_list.Add(42);
+            //simple_array_list.Add(new object());
+            //simple_array_list.Add(3.14456465468);
+            //simple_array_list.Add("Hello World!");
 
-            var rnd = new Random();
-            for (int i = 0; i < 100; i++)
-            {
-                dekanat.Add(new Student
-                {
-                    Name = $"Student {i + 1}",
-                    Rating = rnd.GetRandomIntValues(20, 2, 6).ToList() //GetRandomRatings(rnd, 20, 50)
-                });
-            }
-
-            dekanat.Add(new Student { Name = "Strange student", Rating = new List<int> { 5, 5, 5, 5, 4, 5, 5 } });
-
-            const string students_data_file = "students.csv";
-            dekanat.SaveToFile(students_data_file);
-
-            var dekanat2 = new Dekanat();
-            dekanat2.LoadFromFile(students_data_file);
-
-            var student = new Student { Name = $"Student", Rating = GetRandomRatings(rnd, 20, 50) };
-
-            //var result = student.CompareTo(dekanat);
-
-            foreach (var std in dekanat2)
-            {
-                Console.WriteLine(std);
-            }
-
-            var average_rating = dekanat2.Average(s => s.AverageRating);    //YAHOOEYU просто космические записи ))
-            var sum_average_rating = dekanat2.Sum(s => s.AverageRating);
-
-            var random_student_name = rnd.NextValue("Иванов", "Петров", "Сидоров");
-
-            var random_rating = rnd.NextValue(2, 4, 5, 7, 2);
-
-            #region старое
-            // равносильные записи. Использование ДЕЛЕГАТА
-            //StudentProcessor processor = new StudentProcessor(GetIndexStudentName);
-            //StudentProcessor processor = GetIndexStudentName;
-
-            //var Index = 0;
-            //foreach (var s in dekanat2)
+            //for (int i = 0; i < simple_array_list.Count; i++)
             //{
-            //    Console.WriteLine(processor(s, Index++));
-            //}
-            //Console.ReadLine();
-
-            //processor = GetAverageStudentRating;
-            //Index = 0;
-            //foreach (var s in dekanat2)
-            //{
-            //    Console.WriteLine(processor(s, Index++));
+            //    var value = simple_array_list[i];
+            //    if (value is int)
+            //    {
+            //        int v = (int)value;
+            //        Console.WriteLine($"Int: {v}");
+            //    }
+            //    else if (value is string)
+            //    {
+            //        string v = (string)value;
+            //        Console.WriteLine($"String: {v}");
+            //    }
+            //    else if (value is double)
+            //    {
+            //        double v = (double)value;
+            //        Console.WriteLine($"Double: {v}");
+            //    }
+            //    else if(value is object)
+            //    {
+            //        object v = (object)value;
+            //        Console.WriteLine($"Object: {v}");
+            //    }
             //}
 
-            //Console.ReadLine();
-            //ProcessStudents(dekanat2, GetIndexStudentName);
+            List<Student> students = new List<Student>(45);
 
-            //Console.ReadLine();
-            //ProcessStudents(dekanat2, GetAverageStudentRating); //  делегат в делегате
+            for (int i = 0; i < 46; i++)
+            {
+                students.Add(new Student());
+            }
 
-            //ProcessStudentsStandard(dekanat2, PrintStudent);
+            var students_to_add = new Student[20];
+            for (int i = 0; i < students_to_add.Length; i++)
+            {
+                students_to_add[i] = new Student();
+            }
+            //  Добавление массива  в список одним пакетом. Увеличение быстродействия. Всегда проверять возможно ли такое?
+            students.AddRange(students_to_add);
 
-            //Console.Clear();
+            students.Capacity = students.Count; // выравнивание кол-ва элементов для сохранения памяти в оперативной памяти
 
-            //var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int)(student.AverageRating * 10)); //  Мой мозг улетел в космос и взорвался об астероид
-            #endregion
+            //  список будет создан на основе любого перечисления
+            var new_students_list = new List<Student>(students_to_add);
+            students.RemoveAt(5);
 
-            //Console.Clear();
+            var number_list = new List<int>(1000);
+            for (int i = 0; i < number_list.Capacity; i++)
+            {
+                number_list.Add(i+22);
+            }
+            var value_index = number_list.BinarySearch(712);
+            
+            var string_list = new List<string>(1000);
+            for (int i = 0; i < string_list.Capacity; i++)
+            {
+                string_list.Add($"Message {i + 22}");
+            }
+            string_list.Sort(); //  странно после сортировки индекс изменяется на 687 до этого 690
+            //string_list.Sort((s1, s2) => StringComparer.Ordinal.Compare(s2, s1));   //  перевернули список
+
+            //var strings_array = string_list.ToArray();
+            //var strings_array = new string[string_list.Count];
+            //string_list.CopyTo(strings_array, 0);
+
+            var str_value_index = string_list.BinarySearch("Message 712");
+            //string_list.ForEach(PrintString);
+
+            const string data_dir_name = "TestData";
+
+            //var total_lines = DataDirectoryProcessor.GetTotalLinesCountStack(data_dir_name);
+            //var total_lines = DataDirectoryProcessor.GetTotalLinesCountQueue(data_dir_name);
+            //Console.WriteLine($"Число строк = {total_lines}");
+            //  Список Стек и очередь все использует интерфейс ПЕРЕЧИСЛЕНИЕ IEnumerable
+
+            var test_strings = new string[] { "Hello World!", "123", "123QWE----" };
+
+            Dictionary<string, int> str_int_dict = new Dictionary<string, int>();
+            str_int_dict.Add("ASD", 1024);
+            for (int i = 0; i < test_strings.Length; i++)
+            {
+                str_int_dict.Add(test_strings[i], test_strings[i].Length);
+            }
+
+            foreach (KeyValuePair<string, int> value in str_int_dict)
+            {
+                Console.WriteLine($"{value.Key} - {value.Value}");
+            }
+
+            var str_123_len = str_int_dict["123"];
+
+            str_int_dict.Remove("123");
+
+            //var str_123_len2 = str_int_dict["123"];
+            int str_123_len3;
+            if (str_int_dict.TryGetValue("123", out str_123_len3))
+            {
+                Console.WriteLine(str_123_len3);
+            }
+
+            //  даже несмотря на то, что данный ключ отсутствовал, он будет добавлен.
+            str_int_dict["123"] = 7;
+            str_int_dict["123"] = 123;
+
+            StudentsTests.Run();
+
             Console.ReadKey();
-
-            var student_to_remove = dekanat.Skip(65).First();
-            dekanat.Remove(student_to_remove);
-
-
-            Console.ReadKey();
         }
 
-        private static void PrintStudent(Student student)
-        {
-            Console.WriteLine("Студент: {0}", student.Name);
-        }
-
-        public static void ProcessStudentsStandard(IEnumerable<Student> Students, Action<Student> action)
-        {
-            foreach (var s in Students)
-            {
-                action(s);
-            }
-        }
-
-        public static int[] GetStudentsMetrics(IEnumerable<Student> Students, Func<Student, int> GetMetric)
-        {
-            var result = new List<int>();
-            foreach (var student in Students)
-            {
-                result.Add(GetMetric(student));
-            }
-            return result.ToArray();
-        }
-
-        public static void ProcessStudents(IEnumerable<Student> Students, StudentProcessor Processor)
-        {
-            var Index = 0;
-            foreach (var s in Students)
-            {
-                Console.WriteLine(Processor(s, Index++));
-            }
-        }
-
-        private static string GetIndexStudentName(Student student, int Index)
-        {
-            return $"{student.Name}[{Index}]";
-        }
-
-        public static string GetAverageStudentRating(Student student, int Index)
-        {
-            return $"[{Index}]:{student.Name} - {student.AverageRating}";
-        }
+        private static void PrintString(string str) => Console.WriteLine($"Str = {str}");
     }
-
-    internal delegate string StudentProcessor(Student Student, int Index);
 }

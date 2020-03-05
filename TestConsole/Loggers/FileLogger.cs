@@ -11,7 +11,7 @@ namespace TestConsole
     public class FileLogger : Logger
     {
         private int _Index;
-        public string FilePath { get; } //TODO почему тут сеттер??
+        public string FilePath { get; } 
         public FileLogger(string FilePath)
         {
             this.FilePath = FilePath;
