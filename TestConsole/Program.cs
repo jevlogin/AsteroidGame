@@ -57,7 +57,13 @@ namespace TestConsole
             }
 
             var count3 = GetItemCounts(numbers);
-            
+            //  Вот с таким привидением GroupBy(n => n) надо разобраться подробнее
+            //var count4 = numbers.GroupBy(
+            //    (int n) =>
+            //    {
+            //        //return n;
+            //        return n.ToString("0000");
+            //    })
             var count4 = numbers.GroupBy(n => n)
                 .Select(group => new { vaue = group.Key, count = group.Count() })
                 .OrderBy(v => v.vaue)
