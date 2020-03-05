@@ -64,8 +64,15 @@ namespace TestConsole
             //        //return n;
             //        return n.ToString("0000");
             //    })
-            var count4 = numbers.GroupBy(n => n)
-                .Select(group => new { vaue = group.Key, count = group.Count() })
+
+            string GetGroupKey(int n)
+            {
+                return n.ToString("0000");
+            }
+
+            //var count4 = numbers.GroupBy(n => n)
+            var count4 = numbers.GroupBy(GetGroupKey)   //  Анонимный делегат
+                .Select(group => new { vaue = group.Key, count = group.Count() })   /*  Лямбда счисления    */
                 .OrderBy(v => v.vaue)
                 .ToArray();
             //  Словарь
