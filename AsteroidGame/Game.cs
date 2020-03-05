@@ -50,33 +50,32 @@ namespace AsteroidGame
             form.KeyDown += OnFormKeyDown;
         }
 
+        private static int __KeyPressedF1;
+        private static int __KeyPressedCtrl;
+        private static int __KeyPressedUp;
+        private static int __KeyPressedDown;
+        private static int __KeyPressedLeft;
+        private static int __KeyPressedRight;
         private static void OnFormKeyDown(object Sender, KeyEventArgs E)
         {
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10));
-                    // добавили пулю посиция относительно корабля координаты __Ship.Position.X __Ship.Position.Y
-                    //TODO  Корректировать положение пули будем тут
+                    __KeyPressedCtrl++;
                     break;
                 case Keys.Up:
-                    __Ship.MoveUp();
                     break;
                 case Keys.Down:
-                    __Ship.MoveDown();
+                    __KeyPressedDown++;
                     break;
                 case Keys.Right:
-                    __Ship.MoveRight(); //  не забыть дописать методы
+                    __KeyPressedRight++;
                     break;
                 case Keys.Left:
-                    __Ship.MoveLeft();  //  не забыть дописать методы
+                    __KeyPressedLeft++;
                     break;
                 case Keys.F1:
-                    if (__Ship.Score >= 1000)
-                    {
-                        __Ship.Score -= 1000;
-                        __Ship.Energy += 50;
-                    }
+                    __KeyPressedF1++;
                     break;
             }
         }
@@ -189,6 +188,55 @@ namespace AsteroidGame
         //  обновление для всех объектов через класс Game
         public static void Update()
         {
+            if (__KeyPressedCtrl > 0)
+            {
+                for (int i = 0; i < __KeyPressedCtrl; i++)
+                {
+                    __Bullets.Add(new Bullet(__Ship.Position.X + 30, __Ship.Position.Y + 10));
+                }
+                __KeyPressedCtrl = 0;
+            }
+            if (__KeyPressedUp > 0)
+            {
+                for (int i = 0; i < __KeyPressedUp; i++)
+                {
+                    __Ship.MoveUp();
+                }
+                __KeyPressedUp = 0;
+            }
+            if (__KeyPressedDown > 0)
+            {
+                for (int i = 0; i < __KeyPressedDown; i++)
+                {
+                    __Ship.MoveDown();
+                }
+                __KeyPressedDown = 0;
+            }
+            if (__KeyPressedLeft > 0)
+            {
+                for (int i = 0; i < __KeyPressedLeft; i++)
+                {
+                    __Ship.MoveLeft();
+                }
+                __KeyPressedLeft = 0;
+            }
+            if (__KeyPressedRight > 0)
+            {
+                for (int i = 0; i < __KeyPressedRight; i++)
+                {
+                    __Ship.MoveRight();
+                }
+                __KeyPressedRight = 0;
+            }
+            if (__KeyPressedF1 > 0)
+            {
+                if (__Ship.Score >= 1000)
+                {
+                    __Ship.Score -= 1000;
+                    __Ship.Energy += 50;
+                }
+                __KeyPressedF1 = 0;
+            }
             foreach (var visual_object in __GameObjects)
             {
                 visual_object?.Update();
@@ -234,8 +282,8 @@ namespace AsteroidGame
                             //  а уже затем удаляем список в другом цикле
                             bullets_to_remove.Add(bullet);
 
-                            __AsteroidList.Remove(obj);   //  ну или так ))) 
-                            //__AsteroidList[i] = null;   //  ну или так ))) 
+                            asteroids_to_remove.Add((Asteroid)collision_object);    //TODO И что мне делать двойное кастование?
+                            //__AsteroidList.Remove(obj);   //  ну или так ))) 
 
                             //TODO при попадании выстрелом в астероид будут начисляться очки
                             __Ship.Score += 100;
@@ -253,6 +301,11 @@ namespace AsteroidGame
                         __Ship.Score -= 50;
                     }
                 }
+            }
+
+            foreach (var asteroid in asteroids_to_remove)
+            {
+                __AsteroidList.Remove(asteroid);   // удалил астероиды вне цикла итерации выше.
             }
 
             //  Метод удаления и использованием linq мне не понравился, так как там не исчезали пули.
