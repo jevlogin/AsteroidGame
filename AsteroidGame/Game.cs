@@ -28,7 +28,7 @@ namespace AsteroidGame
 
         private static Timer __Timer;
 
-        public static Action<string> Log { get; set; }
+        public static event Action<string> Log;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
