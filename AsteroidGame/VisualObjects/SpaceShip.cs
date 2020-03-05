@@ -71,7 +71,7 @@ namespace AsteroidGame.VisualObjects
             var is_collision = Rect.IntersectsWith(obj.Rect);
             if (is_collision && obj is Asteroid asteroid)
             {
-                ChangeEnergy(-asteroid.Power);
+                ChangeEnergy(-Asteroid.Power);
             }
             return is_collision;
         }

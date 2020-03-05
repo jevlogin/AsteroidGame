@@ -89,6 +89,8 @@ namespace AsteroidGame
                     __KeyPressedF1++;
                     break;
             }
+            Log?.Invoke($"Нажата кнопка {E.KeyCode}");
+
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -108,6 +110,8 @@ namespace AsteroidGame
 
         public static void Load()
         {
+            Log?.Invoke($"Загрузка данных сцены...");
+
             var game_objects = new List<VisualObject>();
             __AsteroidList = new List<VisualObject>();
 
@@ -121,14 +125,20 @@ namespace AsteroidGame
                     rnd.Next(0, Height)), new Point(rnd.Next(0, star_max_speed), 0),
                     star_size));
             }
+            Log?.Invoke($"Созданы звезды. Количество {star_count}");
 
             AsteroidListCreate(__AsteroidList, rnd);
+            Log?.Invoke($"{Level.NameLevelGame}\nАстероидов создано {__AsteroidList.Count}\n");
+
 
             __GameObjects = game_objects.ToArray();
             __AsteroidList = __AsteroidList.ToList();
 
             __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
             __Ship.ShipDestroyed += OnShipDestroyed;
+
+            Log?.Invoke($"Загрузка данных сцены выполнена успешно.");
+
         }
 
         private static void AsteroidListCreate(List<VisualObject> game_asteroids, Random rnd)
@@ -136,13 +146,31 @@ namespace AsteroidGame
             int asteroids_count = 5 * Level.LevelGame;
             const int asteroid_size = 30;
             const int asteroid_max_speed = 20;
-            for (int i = 0; i < asteroids_count; i++)
+            if (Level.LevelGame < 3)
             {
-                game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
-                    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
-                    asteroid_size));
+                for (int i = 0; i <= asteroids_count; i++)
+                {
+                    //game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                    //    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                    //    asteroid_size));
+                    game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                        rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                        asteroid_size, $"Астероид {Level.LevelGame}-{game_asteroids.Count()}-"));
+                }
             }
+            else
+            {
+                Asteroid.Power = rnd.Next(5, 20);
+                for (int i = 0; i <= asteroids_count; i++)
+                {
+                    game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                        rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                        asteroid_size, $"Астероид {Level.LevelGame}-{game_asteroids.Count()}-"));
+                }
+            }
+            
         }
+
 
         private static void OnShipDestroyed(object sender, EventArgs e)
         {
@@ -158,6 +186,8 @@ namespace AsteroidGame
                 __Buffer.Graphics.DrawString("Game Over", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
             }
             __Buffer.Render();
+
+            Log?.Invoke($"Корабль уничтожен.");
         }
 
         public static void Draw()
@@ -313,6 +343,8 @@ namespace AsteroidGame
             foreach (var asteroid in asteroids_to_remove)
             {
                 __AsteroidList.Remove(asteroid);   // удалил астероиды вне цикла итерации выше.
+                Log?.Invoke($"Астероид {asteroid} уничтожен");
+
             }
 
             //  Метод удаления и использованием linq мне не понравился, так как там не исчезали пули.
