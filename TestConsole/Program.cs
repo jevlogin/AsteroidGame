@@ -79,6 +79,8 @@ namespace TestConsole
             var count5 = numbers.GroupBy(n => n)
                 .ToDictionary(group => group.Key, group => group.Count());
 
+            /*  0:46:34 */
+
             Console.ReadKey();
         }
 

@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E9B96BAE-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{0191D1C1-3B57-4BF6-85D8-FF55642E6404}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamplesUI", "SamplesUI", "{1AB4C88D-DD44-48CF-89C0-D8902722E002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPFApp", "SamplesUI\WPF\TestWPFApp\TestWPFApp.csproj", "{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWinForms", "SamplesUI\WinForms\TestWinForms\TestWinForms.csproj", "{933B5B18-3678-409C-B636-1A13CAF4CDF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +29,23 @@ Global
 		{0191D1C1-3B57-4BF6-85D8-FF55642E6404}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0191D1C1-3B57-4BF6-85D8-FF55642E6404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0191D1C1-3B57-4BF6-85D8-FF55642E6404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933B5B18-3678-409C-B636-1A13CAF4CDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933B5B18-3678-409C-B636-1A13CAF4CDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933B5B18-3678-409C-B636-1A13CAF4CDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933B5B18-3678-409C-B636-1A13CAF4CDF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0191D1C1-3B57-4BF6-85D8-FF55642E6404} = {E9B96BAE-C3D6-4463-B2D6-DF08529FD2BF}
+		{1AB4C88D-DD44-48CF-89C0-D8902722E002} = {E9B96BAE-C3D6-4463-B2D6-DF08529FD2BF}
+		{6270ADD1-74C6-4F93-8CD4-5A09BCECDFC2} = {1AB4C88D-DD44-48CF-89C0-D8902722E002}
+		{933B5B18-3678-409C-B636-1A13CAF4CDF0} = {1AB4C88D-DD44-48CF-89C0-D8902722E002}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBB379B3-0884-4F50-B2D5-AF07083F1373}
