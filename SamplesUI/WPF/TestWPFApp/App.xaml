@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <sys:String x:Key="ComboBoxTitle">Список:</sys:String>

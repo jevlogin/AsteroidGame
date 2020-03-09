@@ -20,6 +20,7 @@
             <Button Name="btnClickMe" Click="btnClickMe_Click">Click me!</Button>
         </WrapPanel>
         <ListBox Name="lbResult" />
+        <Button Content="Кнопка" MaxHeight="40" MaxWidth="80" Background="{StaticResource Brush}"/>
     </DockPanel>
 
 </Window>
