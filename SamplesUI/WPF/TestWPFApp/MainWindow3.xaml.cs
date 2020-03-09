@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace TestWPFApp
 {
     /// <summary>
-    /// Логика взаимодействия для TestWindow.xaml
+    /// Логика взаимодействия для MainWindow3xaml.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class MainWindow3xaml : Window
     {
-        public TestWindow()
+        public MainWindow3xaml()
         {
             InitializeComponent();
-        }
-
-        private void ExitHandler(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }
