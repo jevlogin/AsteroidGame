@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TestWPFApp"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             StartupUri="MainWindow3.xaml">
+             StartupUri="MainWindow4.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
