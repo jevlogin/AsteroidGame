@@ -10,7 +10,11 @@
                 <ResourceDictionary Source="Resources/Buttons.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Gold" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
             <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
             <sys:String x:Key="strApp">Мои первые дебильные приложения на WPF</sys:String>
         </ResourceDictionary>
