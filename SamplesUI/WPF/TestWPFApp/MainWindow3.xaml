@@ -33,6 +33,7 @@
         </StackPanel.Resources>-->
         <Label Content="{StaticResource ComboBoxTitle}" />
         <ComboBox ItemsSource="{StaticResource ComboBoxItems}" Foreground="{StaticResource WindowForegrroundBrush}" />
+        <TextBlock Text="{StaticResource strApp}" FontSize="12" Margin="10,10,0,0" TextWrapping="Wrap"/>
     </StackPanel>
 
 </Window>
