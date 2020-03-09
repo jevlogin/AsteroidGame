@@ -28,9 +28,9 @@
         </LinearGradientBrush>
     </Window.Resources>
     <StackPanel Margin="10">
-        <StackPanel.Resources>
+        <!--<StackPanel.Resources>
             <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
-        </StackPanel.Resources>
+        </StackPanel.Resources>-->
         <Label Content="{StaticResource ComboBoxTitle}" />
         <ComboBox ItemsSource="{StaticResource ComboBoxItems}" Foreground="{StaticResource WindowForegrroundBrush}" />
     </StackPanel>
