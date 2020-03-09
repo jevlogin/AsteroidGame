@@ -28,7 +28,13 @@
         </Menu>
 
         <StatusBar Grid.Row="2">
-            <TextBlock>Готов к труду и обороне!</TextBlock>
+            <TextBlock>
+                <TextBlock.Foreground>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF0A3FF3" Offset="1"/>
+                        <GradientStop Color="#FFF92813"/>
+                    </RadialGradientBrush>
+                </TextBlock.Foreground>Готов к труду и обороне!</TextBlock>
             <ProgressBar Width="120" Height="10" Value="30" Margin="15,0,0,0"></ProgressBar>
         </StatusBar>
     </Grid>
