@@ -6,13 +6,20 @@
         xmlns:local="clr-namespace:TestWPFApp"
         mc:Ignorable="d"
         Title="MainWindow5" Height="450" Width="800">
+    <!--Стили для всего диалогового окна-->
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="CadetBlue" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Window.Resources>
     <StackPanel Margin="10">
-        <StackPanel.Resources>
+        <!--<StackPanel.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="FontSize" Value="20" />
             </Style>
-        </StackPanel.Resources>
+        </StackPanel.Resources>-->
         <TextBlock>Заголовок 1</TextBlock>
         <TextBlock Foreground="Blue">Синий заголовок</TextBlock>
         <TextBlock Text="Стиль для одного блока">
