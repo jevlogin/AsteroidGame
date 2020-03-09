@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TestWPFApp"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             StartupUri="MainWindow5.xaml">
+             StartupUri="MainWindow6.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,10 +11,6 @@
                 <ResourceDictionary Source="Resources/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="Gold" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
             <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
             <sys:String x:Key="strApp">Мои первые дебильные приложения на WPF</sys:String>
         </ResourceDictionary>
