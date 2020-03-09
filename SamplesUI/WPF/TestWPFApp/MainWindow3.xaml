@@ -12,7 +12,7 @@
         Background="{DynamicResource WindowBackgroundBrush}"
         >
     <Window.Resources>
-        <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
+        <!--<sys:String x:Key="ComboBoxTitle">Список:</sys:String>-->
         <x:Array x:Key="ComboBoxItems" Type="sys:String">
             <sys:String>Элемент #1</sys:String>
             <sys:String>Элемент #2</sys:String>
@@ -28,6 +28,9 @@
         </LinearGradientBrush>
     </Window.Resources>
     <StackPanel Margin="10">
+        <StackPanel.Resources>
+            <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
+        </StackPanel.Resources>
         <Label Content="{StaticResource ComboBoxTitle}" />
         <ComboBox ItemsSource="{StaticResource ComboBoxItems}" Foreground="{StaticResource WindowForegrroundBrush}" />
     </StackPanel>
