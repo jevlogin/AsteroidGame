@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Employee.cs" />
     <Compile Include="MainWindow3.xaml.cs">
       <DependentUpon>MainWindow3.xaml</DependentUpon>
     </Compile>
