@@ -67,6 +67,9 @@
     <Compile Include="MainWindow6.xaml.cs">
       <DependentUpon>MainWindow6.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow7.xaml.cs">
+      <DependentUpon>MainWindow7.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow6.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow7.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
