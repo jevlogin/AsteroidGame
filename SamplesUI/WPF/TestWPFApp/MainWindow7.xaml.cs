@@ -30,19 +30,26 @@ namespace TestWPFApp
         private void FillList()
         {
             items.Add(new Employee() { Id = 1, Name = "Константин", Age = 28, Salary = 3000 });
-            items.Add(new Employee() { Id = 1, Name = "Максим", Age = 26, Salary = 3000 });
-            items.Add(new Employee() { Id = 1, Name = "Олег", Age = 30, Salary = 3000 });
+            items.Add(new Employee() { Id = 2, Name = "Максим", Age = 26, Salary = 6000 });
+            items.Add(new Employee() { Id = 3, Name = "Олег", Age = 30, Salary = 8000 });
             LbEmployee.ItemsSource = items;
+        }
+
+        private void lbEmployee_Selected(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(e.Source.ToString());
         }
 
         private void LbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            MessageBox.Show(e.AddedItems[0].ToString());
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            items.Add(new Employee() { Id = 1, Name = "Евгений", Age = 33, Salary = 7000 });
         }
+
     }
 }
