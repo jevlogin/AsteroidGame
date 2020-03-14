@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\BoolToVisibility.cs" />
+    <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\MultiplyTo2.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
