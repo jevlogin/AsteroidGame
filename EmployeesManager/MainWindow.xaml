@@ -1,0 +1,46 @@
+﻿<Window x:Class="EmployeesManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeesManager"
+        xmlns:m="clr-namespace:EmployeesManager.Models"
+        xmlns:data="clr-namespace:EmployeesManager.Data"
+        Title="MainWindow" 
+        Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="Сотрудники">
+            <!--<ListView Name="EmployeesList"></ListView>-->
+            <ListView Name="EmployeesList" 
+                      ItemsSource="{x:Static data:TestData.Employees}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="m:Employee">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Id, StringFormat=id: {0}}"/>
+                            <TextBlock Text="{Binding SurName, StringFormat=Фамилия: {0}}"/>
+                            <TextBlock Text="{Binding Name, StringFormat=Имя: {0}}"/>
+                            <TextBlock Text="{Binding Patronymic, StringFormat=Отчество: {0}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Информация по сотруднику">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
