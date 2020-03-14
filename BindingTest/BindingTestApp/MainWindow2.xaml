@@ -69,6 +69,32 @@
                             <Setter Property="BorderThickness" Value="4"/>
                             <Setter Property="BorderBrush" Value="Green"/>
                         </DataTrigger>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <!--<Setter Property="BorderBrush" Value="Red"/>-->
+                            <!--<Setter Property="Background" Value="Brown"/>-->
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="Red" Duration="0:0:0.5"
+                                             Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" 
+                                                         To="5" Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.5" From="Blue"
+                                             Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" 
+                                                         From="5" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        
                     </Style.Triggers>
                 </Style>
             </TextBox.Style>
