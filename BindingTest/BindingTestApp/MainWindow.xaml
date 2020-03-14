@@ -9,9 +9,13 @@
     <Grid>
         <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 60"
                  Name="DataBox" Text="Текстовое поле"/>
-        <TextBlock Text="123" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 90"/>
-        <Slider VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 120"></Slider>
+        <TextBlock Text="{Binding Text, ElementName=DataBox}" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   Margin="25, 90"/>
+        <Slider VerticalAlignment="Top" HorizontalAlignment="Left" 
+                Width="120" Margin="25, 120" Value="{Binding Text, ElementName=DataBox}" Maximum="100"></Slider>
         <ProgressBar VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 30" 
-                     Height="16" Width="120" Value="33" x:Name="BarOfProgress"/>
+                     Height="16" Width="120" Value="{Binding Text, ElementName=DataBox}" x:Name="BarOfProgress"/>
     </Grid>
 </Window>
