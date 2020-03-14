@@ -56,18 +56,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Employee.cs" />
-    <Compile Include="MainWindow3.xaml.cs">
-      <DependentUpon>MainWindow3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow4.xaml.cs">
-      <DependentUpon>MainWindow4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow5.xaml.cs">
-      <DependentUpon>MainWindow5.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow6.xaml.cs">
-      <DependentUpon>MainWindow6.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow7.xaml.cs">
       <DependentUpon>MainWindow7.xaml</DependentUpon>
     </Compile>
@@ -87,22 +75,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow3.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow4.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow5.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow6.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
