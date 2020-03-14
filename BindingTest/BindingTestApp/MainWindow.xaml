@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BindingTestApp"
-        Title="MainWindow" 
+        Title="{Binding ElementName=DataBox, Path=Text}" 
         Height="450" Width="800">
     <Grid>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 60"/>
+        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 60"
+                 Name="DataBox" Text="Текстовое поле"/>
         <TextBlock Text="123" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 90"/>
         <Slider VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 120"></Slider>
-        <ProgressBar VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 30" Height="16" Width="120" Value="33"/>
+        <ProgressBar VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 30" 
+                     Height="16" Width="120" Value="33" x:Name="BarOfProgress"/>
     </Grid>
 </Window>
