@@ -1,0 +1,39 @@
+﻿<Window x:Class="TestWPFApp.MainWindow3xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPFApp"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Height="160" 
+        Width="300"
+        Title="Ресурсы"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        >
+    <Window.Resources>
+        <!--<sys:String x:Key="ComboBoxTitle">Список:</sys:String>-->
+        <x:Array x:Key="ComboBoxItems" Type="sys:String">
+            <sys:String>Элемент #1</sys:String>
+            <sys:String>Элемент #2</sys:String>
+            <sys:String>Элемент #3</sys:String>
+        </x:Array>
+        <LinearGradientBrush x:Key="WindowBackgroundBrush">
+            <GradientStop Offset="0" Color="Silver"/>
+            <GradientStop Offset="1" Color="BurlyWood"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="WindowForegrroundBrush">
+            <GradientStop Offset="0" Color="Black"/>
+            <GradientStop Offset="1" Color="Red"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <!--<StackPanel.Resources>
+            <sys:String x:Key="ComboBoxTitle">Список:</sys:String>
+        </StackPanel.Resources>-->
+        <Label Content="{StaticResource ComboBoxTitle}" />
+        <ComboBox ItemsSource="{StaticResource ComboBoxItems}" Foreground="{StaticResource WindowForegrroundBrush}" />
+        <TextBlock Text="{StaticResource strApp}" FontSize="12" Margin="10,10,0,0" TextWrapping="Wrap"/>
+    </StackPanel>
+
+</Window>

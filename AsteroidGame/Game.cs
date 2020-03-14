@@ -28,6 +28,8 @@ namespace AsteroidGame
 
         private static Timer __Timer;
 
+        public static event Action<string> Log;
+
         public static int Width { get; set; }
         public static int Height { get; set; }
 
@@ -48,6 +50,14 @@ namespace AsteroidGame
             __Timer = timer;
 
             form.KeyDown += OnFormKeyDown;
+
+            /*
+            Log("Выполнена Инициализация.");    
+                Можно было бы и так написать. 
+                Но внутри метода может быть пустая ссылка. 
+                Тем самым мы защищаем себя вызовом метода Invoke()
+            */
+            Log?.Invoke("Выполнена Инициализация.");
         }
 
         private static int __KeyPressedF1;
@@ -64,6 +74,7 @@ namespace AsteroidGame
                     __KeyPressedCtrl++;
                     break;
                 case Keys.Up:
+                    __KeyPressedUp++;
                     break;
                 case Keys.Down:
                     __KeyPressedDown++;
@@ -78,6 +89,8 @@ namespace AsteroidGame
                     __KeyPressedF1++;
                     break;
             }
+            Log?.Invoke($"Нажата кнопка {E.KeyCode}");
+
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -97,6 +110,8 @@ namespace AsteroidGame
 
         public static void Load()
         {
+            Log?.Invoke($"Загрузка данных сцены...");
+
             var game_objects = new List<VisualObject>();
             __AsteroidList = new List<VisualObject>();
 
@@ -110,14 +125,20 @@ namespace AsteroidGame
                     rnd.Next(0, Height)), new Point(rnd.Next(0, star_max_speed), 0),
                     star_size));
             }
+            Log?.Invoke($"Созданы звезды. Количество {star_count}");
 
             AsteroidListCreate(__AsteroidList, rnd);
+            Log?.Invoke($"{Level.NameLevelGame}\nАстероидов создано {__AsteroidList.Count}\n");
+
 
             __GameObjects = game_objects.ToArray();
             __AsteroidList = __AsteroidList.ToList();
 
             __Ship = new SpaceShip(new Point(10, 300), new Point(5, 5), 40);
             __Ship.ShipDestroyed += OnShipDestroyed;
+
+            Log?.Invoke($"Загрузка данных сцены выполнена успешно.");
+
         }
 
         private static void AsteroidListCreate(List<VisualObject> game_asteroids, Random rnd)
@@ -125,13 +146,31 @@ namespace AsteroidGame
             int asteroids_count = 5 * Level.LevelGame;
             const int asteroid_size = 30;
             const int asteroid_max_speed = 20;
-            for (int i = 0; i < asteroids_count; i++)
+            if (Level.LevelGame < 3)
             {
-                game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
-                    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
-                    asteroid_size));
+                for (int i = 0; i <= asteroids_count; i++)
+                {
+                    //game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                    //    rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                    //    asteroid_size));
+                    game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                        rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                        asteroid_size, $"Астероид {Level.LevelGame}-{game_asteroids.Count()}-"));
+                }
             }
+            else
+            {
+                Asteroid.Power = rnd.Next(5, 20);
+                for (int i = 0; i <= asteroids_count; i++)
+                {
+                    game_asteroids.Add(new Asteroid(new Point(rnd.Next(0, Width),
+                        rnd.Next(0, Height)), new Point(rnd.Next(0, asteroid_max_speed), rnd.Next(0, 10)),
+                        asteroid_size, $"Астероид {Level.LevelGame}-{game_asteroids.Count()}-"));
+                }
+            }
+            
         }
+
 
         private static void OnShipDestroyed(object sender, EventArgs e)
         {
@@ -147,6 +186,8 @@ namespace AsteroidGame
                 __Buffer.Graphics.DrawString("Game Over", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
             }
             __Buffer.Render();
+
+            Log?.Invoke($"Корабль уничтожен.");
         }
 
         public static void Draw()
@@ -167,11 +208,9 @@ namespace AsteroidGame
                 asteroid?.Draw(g);
             }
 
-            //__Bullet?.Draw(g);
-
             foreach (var bullet in __Bullets)
             {
-                bullet.Draw(g); //TODO - ЧТО ТАКОЕ g?? нужно объяснение прямо как для тупых ))
+                bullet.Draw(g);
             }
 
             __Ship.Draw(g);
@@ -283,8 +322,6 @@ namespace AsteroidGame
                             bullets_to_remove.Add(bullet);
 
                             asteroids_to_remove.Add((Asteroid)collision_object);    //TODO И что мне делать двойное кастование?
-                            //__AsteroidList.Remove(obj);   //  ну или так ))) 
-
                             //TODO при попадании выстрелом в астероид будут начисляться очки
                             __Ship.Score += 100;
 
@@ -294,9 +331,9 @@ namespace AsteroidGame
                     //TODO  Пока такой способ, при столкновении корабля с астероидами, астероид уничтожается, корабль повреждается
                     if (__Ship != null && __Ship.CheckCollision(collision_object))
                     {
-                        //TODO  В будущем переделать, чтобы астероид разбивался на 2 части в зависимости от мощности.
                         //TODO  При столкновении с кораблем астероид взрывается
-                        __AsteroidList.Remove(obj);
+                        //__AsteroidList.Remove(obj);
+                        asteroids_to_remove.Add((Asteroid)collision_object);    //TODO И что мне делать двойное кастование?
                         //TODO При столкновении корабля с астероидами отнимаются не только жизни, но и очки
                         __Ship.Score -= 50;
                     }
@@ -306,6 +343,8 @@ namespace AsteroidGame
             foreach (var asteroid in asteroids_to_remove)
             {
                 __AsteroidList.Remove(asteroid);   // удалил астероиды вне цикла итерации выше.
+                Log?.Invoke($"Астероид {asteroid} уничтожен");
+
             }
 
             //  Метод удаления и использованием linq мне не понравился, так как там не исчезали пули.
