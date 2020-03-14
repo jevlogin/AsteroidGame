@@ -9,7 +9,7 @@
     <Grid>
         <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Margin="25, 60"
                  Name="DataBox" Text="Текстовое поле"/>
-        <TextBlock Text="{Binding Text, ElementName=DataBox}" 
+        <TextBlock Text="{Binding Value, ElementName=BarOfProgress, StringFormat=F2}" 
                    VerticalAlignment="Top" 
                    HorizontalAlignment="Left" 
                    Margin="25, 90"/>
