@@ -50,6 +50,28 @@
         <TextBlock Name="VerticalValue" 
                  HorizontalAlignment="Left" VerticalAlignment="Bottom" 
                  Margin="30,10" Text="Y"/>
-
+        <CheckBox HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                  Content="Visibility of Y" Margin="30,60"
+                  Name="VisibilityY" IsChecked="True"></CheckBox>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                 Width="60" Margin="30,30" Text="{Binding Value, ElementName=VerticalSlider, Converter={StaticResource MultiplyTo2}}">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="Yellow"/>
+                    <Style.Triggers>
+                        <!--<Trigger SourceName="VisibilityY" Property="IsChecked" Value="False">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </Trigger>-->
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=VisibilityY}" Value="false">
+                            <!--<Setter Property="Visibility" Value="Hidden"/>-->
+                            <Setter Property="Background" Value="DarkBlue"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="BorderThickness" Value="4"/>
+                            <Setter Property="BorderBrush" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
     </Grid>
 </Window>
