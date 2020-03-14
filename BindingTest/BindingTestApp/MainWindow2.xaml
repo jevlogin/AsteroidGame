@@ -16,15 +16,21 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <Slider VerticalAlignment="Top" Margin="30,0,0,0"
+        <Slider VerticalAlignment="Top" Margin="30,0,0,0" Name="HorizontalSlider"
                 Value="{Binding X, ElementName=Shifter}" Maximum="300"></Slider>
-        <Slider VerticalAlignment="Stretch" 
+        <Slider VerticalAlignment="Stretch" Name="VerticalSlider"
                 HorizontalAlignment="Left" 
                 Orientation="Vertical"
                 Margin="0,30,0,30" Value="{Binding Y, ElementName=Shifter}" Maximum="200"></Slider>
         <Slider HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom" 
                 Width="200" Value="{Binding Angle, ElementName=Rotator}" Minimum="0" Maximum="60"></Slider>
+        <TextBlock Name="HorizontalValue" 
+                 HorizontalAlignment="Right" VerticalAlignment="Top" 
+                 Margin="10,30" Text="X"/>
+        <TextBlock Name="VerticalValue" 
+                 HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                 Margin="30,10" Text="Y"/>
 
     </Grid>
 </Window>

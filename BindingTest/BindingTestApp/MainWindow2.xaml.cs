@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BindingTestApp
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow2.xaml
-    /// </summary>
-    public partial class MainWindow2 : Window
+    public partial class MainWindow2
     {
         public MainWindow2()
         {
             InitializeComponent();
+
+            var horizontal_binding = new Binding();
+            horizontal_binding.ElementName = "HorizontalSlider";
+            horizontal_binding.Path = new PropertyPath("Value");
+            HorizontalValue.SetBinding(TextBlock.TextProperty, horizontal_binding);
+
+            var vertical_binding = new Binding();
+            vertical_binding.ElementName = "VerticalSlider";
+            vertical_binding.Path = new PropertyPath("Value");
+            VerticalValue.SetBinding(TextBlock.TextProperty, vertical_binding);
         }
     }
 }
