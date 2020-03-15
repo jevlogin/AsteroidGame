@@ -1,4 +1,5 @@
-﻿using MVVMTestApp.ViewModels.Base;
+﻿using MVVMTestApp.Infrastructure.Commands;
+using MVVMTestApp.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Input;
 
 namespace MVVMTestApp.ViewModels
 {
@@ -48,6 +50,35 @@ namespace MVVMTestApp.ViewModels
             get => _SelectedEmployee;
             set => Set(ref _SelectedEmployee, value);
         }
+
+        #region Команды
+
+        public ICommand CreateNewEmployeeCommand { get; }
+        private void OnCreateNewEmployeeCommandExecuted(object parameter)
+        {
+            var new_employe = new EmployeeViewModel
+            {
+                Name = "NewEmployeName"
+            };
+            _Employees.Insert(0, new_employe);
+            SelectedEmployee = new_employe;
+        }
+        public ICommand RemoveEmployeeCommand { get; }
+        private void OnRemoveEmployeeCommandExecuted(object parameter)
+        {
+            if (!(parameter is EmployeeViewModel employee))
+            {
+                return;
+            }
+            _Employees.Remove(employee);
+            if (ReferenceEquals(_SelectedEmployee, employee))
+            {
+                SelectedEmployee = null;
+            }
+        }
+        private bool CanRemoveEmployeeCommandExecute(object parameter) => parameter is EmployeeViewModel;
+
+        #endregion
         public MainWindowViewModel()
         {
             var rnd = new Random();
@@ -67,6 +98,14 @@ namespace MVVMTestApp.ViewModels
                 {
                     Name = $"Отдел {i}"
                 }));
+
+            #region Команды
+
+            CreateNewEmployeeCommand = new LambdaCommand(OnCreateNewEmployeeCommandExecuted);
+
+            RemoveEmployeeCommand = new LambdaCommand(OnRemoveEmployeeCommandExecuted, CanRemoveEmployeeCommandExecute);
+
+            #endregion
         }
     }
 }

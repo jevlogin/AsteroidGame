@@ -18,8 +18,8 @@
         <GroupBox Header="Сотрудники" Grid.Column="0">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-                    <Button Content="Добавить"/>
-                    <Button Content="Удалить"/>
+                    <Button Content="Добавить" Command="{Binding CreateNewEmployeeCommand}"/>
+                    <Button Content="Удалить" Command="{Binding RemoveEmployeeCommand}" CommandParameter="{Binding SelectedEmployee}"/>
                 </UniformGrid>
                 <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
                     <ListBox.ItemTemplate>
