@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TestWPFApp
+namespace BindingTestApp
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow3xaml.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow3xaml : Window
+    public partial class MainWindow : Window
     {
-        public MainWindow3xaml()
+        public MainWindow()
         {
             InitializeComponent();
         }
