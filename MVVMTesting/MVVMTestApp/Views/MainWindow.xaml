@@ -40,6 +40,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Id:" />
@@ -60,6 +61,9 @@
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Дата рождения:" />
                 <Calendar Grid.Column="1" Grid.Row="5" DisplayDate="{Binding BirthDay}"
                           SelectedDate="{Binding BirthDay}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Отдел:"/>
+                <ComboBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding DataContext.Departaments, RelativeSource={RelativeSource AncestorType=GroupBox}}"/>
 
 
             </Grid>

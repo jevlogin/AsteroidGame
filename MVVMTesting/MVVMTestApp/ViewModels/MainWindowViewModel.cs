@@ -27,6 +27,14 @@ namespace MVVMTestApp.ViewModels
             set => Set(ref _Title, value);
         }
 
+        private ObservableCollection<DepartamentViewModel> _Departaments = new ObservableCollection<DepartamentViewModel>();
+
+        public ObservableCollection<DepartamentViewModel> Departaments
+        {
+            get => _Departaments;
+            set => Set(ref _Departaments, value);
+        }
+
         private ObservableCollection<EmployeeViewModel> _Employees = new ObservableCollection<EmployeeViewModel>();
 
         public ObservableCollection<EmployeeViewModel> Employees
@@ -54,6 +62,11 @@ namespace MVVMTestApp.ViewModels
             {
                 _Employees.Add(employee);
             }
+            _Departaments = new ObservableCollection<DepartamentViewModel>(
+                Enumerable.Range(1, 100).Select(i => new DepartamentViewModel
+                {
+                    Name = $"Отдел {i}"
+                }));
         }
     }
 }
