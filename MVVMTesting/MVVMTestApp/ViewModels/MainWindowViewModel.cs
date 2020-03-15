@@ -1,6 +1,7 @@
 ﻿using MVVMTestApp.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,25 @@ namespace MVVMTestApp.ViewModels
             set => Set(ref _Title, value);
         }
 
+        private ObservableCollection<EmployeeViewModel> _Employees = new ObservableCollection<EmployeeViewModel>();
+
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get => _Employees;
+            set => Set(ref _Employees, value);
+        }
         public MainWindowViewModel()
         {
-           
+            foreach (var employee in Enumerable.Range(1, 100).Select(i => new EmployeeViewModel
+            {
+                Name = $"Имя {i}",
+                SurName = $"Фамилия {i}",
+                Patronymic = $"Отчество {i}",
+                BirthDay = DateTime.Now
+            }))
+            {
+                _Employees.Add(employee);
+            }
         }
     }
 }
