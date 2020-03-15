@@ -11,10 +11,6 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left"
-                 Width="200" Margin="30" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,5"
-                  Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=dd:MM:yyyy HH:mm:ss.ff}"/>
+        
     </Grid>
 </Window>
