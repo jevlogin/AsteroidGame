@@ -16,17 +16,23 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Header="Сотрудники" Grid.Column="0">
-            <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="vm:EmployeeViewModel">
-                        <TextBlock>
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button Content="Добавить"/>
+                    <Button Content="Удалить"/>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:EmployeeViewModel">
+                            <TextBlock>
                             <TextBlock Text="{Binding SurName}"/>
                             <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text="{Binding Departament.Name, TargetNullValue=[null], FallbackValue=[--]}"/>
                         </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
         </GroupBox>
         <GroupBox Header="Выбранный сотрудник" Grid.Column="1">
             <Grid DataContext="{Binding SelectedEmployee}">
