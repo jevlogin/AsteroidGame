@@ -34,10 +34,17 @@ namespace MVVMTestApp.ViewModels
             get => _Employees;
             set => Set(ref _Employees, value);
         }
+        private EmployeeViewModel _SelectedEmployee;
+        public EmployeeViewModel SelectedEmployee
+        {
+            get => _SelectedEmployee;
+            set => Set(ref _SelectedEmployee, value);
+        }
         public MainWindowViewModel()
         {
             foreach (var employee in Enumerable.Range(1, 100).Select(i => new EmployeeViewModel
             {
+                Id = i,
                 Name = $"Имя {i}",
                 SurName = $"Фамилия {i}",
                 Patronymic = $"Отчество {i}",

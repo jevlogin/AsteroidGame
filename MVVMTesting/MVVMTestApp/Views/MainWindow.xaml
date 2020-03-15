@@ -11,6 +11,54 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Сотрудники" Grid.Column="0">
+            <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="vm:EmployeeViewModel">
+                        <TextBlock>
+                            <TextBlock Text="{Binding SurName}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Header="Выбранный сотрудник" Grid.Column="1">
+            <Grid DataContext="{Binding SelectedEmployee}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Id:" />
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Id}"/>
+                
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Фамилия:" />
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SurName}"/>
+                
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Имя:" />
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Name}"/>
+                
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Отчество:" />
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Patronymic}"/>
+                
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата рождения:" />
+                <Calendar Grid.Column="1" Grid.Row="4" SelectedDate="{Binding BirthDay}"/>
+                
+            </Grid>
+        </GroupBox>
+        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="3"
+                      Background="Transparent"/>
     </Grid>
 </Window>
