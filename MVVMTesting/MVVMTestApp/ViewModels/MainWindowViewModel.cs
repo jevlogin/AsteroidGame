@@ -10,33 +10,25 @@ namespace MVVMTestApp.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        private Timer _Timer;
-        private DateTime _CurrentTime;
-        public string Title { get; set; } = "Заголовок окна проекта MVVM";
-
-        public DateTime CurrentTime
+        private string _Title = "Заголовок окна проекта MVVM";
+        public string Title
         {
-            get => _CurrentTime;
-            set
+            get
             {
-                if (Equals(_CurrentTime, value))
-                {
-                    return;
-                }
-                _CurrentTime = value;
-                OnPropertyChanged();
+                return _Title;
             }
+            //set
+            //{
+            //    if (Equals(_Title, value)) return;
+            //    _Title = Title;
+            //    OnPropertyChanged(nameof(Title));
+            //}
+            set => Set(ref _Title, value);
         }
+
         public MainWindowViewModel()
         {
-            _Timer = new Timer(100) { AutoReset = true };
-            _Timer.Elapsed += OnTimerTick;
-            _Timer.Start();
-        }
-
-        private void OnTimerTick(object Sender, ElapsedEventArgs E)
-        {
-            CurrentTime = DateTime.Now;
+           
         }
     }
 }
