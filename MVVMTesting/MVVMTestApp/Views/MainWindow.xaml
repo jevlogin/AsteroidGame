@@ -22,6 +22,7 @@
                         <TextBlock>
                             <TextBlock Text="{Binding SurName}"/>
                             <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Departament.Name, TargetNullValue=[null], FallbackValue=[--]}"/>
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -63,7 +64,10 @@
                           SelectedDate="{Binding BirthDay}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Отдел:"/>
-                <ComboBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding DataContext.Departaments, RelativeSource={RelativeSource AncestorType=GroupBox}}"/>
+                <ComboBox Grid.Column="1" Grid.Row="6" 
+                          SelectedItem="{Binding Departament}"
+                          ItemsSource="{Binding DataContext.Departaments, RelativeSource={RelativeSource AncestorType=GroupBox}}"
+                          DisplayMemberPath="Name"/>
 
 
             </Grid>
