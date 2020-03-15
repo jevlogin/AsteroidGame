@@ -19,18 +19,44 @@
                       ItemsSource="{x:Static data:TestData.Employees}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="m:Employee">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Id, StringFormat=id: {0}}"/>
-                            <TextBlock Text="{Binding SurName, StringFormat=Фамилия: {0}}"/>
-                            <TextBlock Text="{Binding Name, StringFormat=Имя: {0}}"/>
-                            <TextBlock Text="{Binding Patronymic, StringFormat=Отчество: {0}}"/>
-                        </StackPanel>
+                        <Border Width="175" Background="White" BorderBrush="Gray" BorderThickness="4" CornerRadius="4" Margin="0,5" Padding="3">
+                            <Border.Effect>
+                                <DropShadowEffect />
+                            </Border.Effect>
+                            <StackPanel ToolTip="{Binding DayOfBirth}">
+                                <TextBlock Text="{Binding Id, StringFormat=id: {0}}"/>
+                                <TextBlock Text="{Binding SurName, StringFormat=Фамилия: {0}}"/>
+                                <TextBlock Text="{Binding Name, StringFormat=Имя: {0}}"/>
+                                <TextBlock Text="{Binding Patronymic, StringFormat=Отчество: {0}}"/>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
-        <GroupBox Grid.Column="1" Header="Информация по сотруднику">
+        <GroupBox Grid.Column="1" Header="Информация по сотруднику" DataContext="{Binding SelectedItem, ElementName=EmployeesList}">
             <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <Trigger Property="Grid.Column" Value="0">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Trigger>
+                            <Trigger Property="Grid.Column" Value="1">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0"/>
+                                            <GradientStop Color="#FFF3914D" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
@@ -39,7 +65,24 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="ID:"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Фамилия:"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Имя:"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Отчество:"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Дата Рождения:"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Возраст:"></TextBlock>
+
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Id}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SurName}"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Name}"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Patronymic}"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding DayOfBirth}"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Age}"/>
             </Grid>
         </GroupBox>
     </Grid>
