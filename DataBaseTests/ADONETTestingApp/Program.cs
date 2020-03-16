@@ -12,6 +12,8 @@
                                         + "TrustServerCertificate = False;"
                                         + "ApplicationIntent = ReadWrite;"
                                         + "MultiSubnetFailover = False";
+
+            1:36:14
         }
     }
 }
