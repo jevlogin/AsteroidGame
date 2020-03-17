@@ -56,7 +56,7 @@ namespace ADONETTestingApp
                 connection.Open();
 
                 var select_command = new SqlCommand(__SqlSelectFromPeople, connection);
-                using (var reader = select_command.ExecuteReader(CommandBehavior.CloseConnection))  //Заставляем закрыть ДАТАРЕАДЕР после прочтения, выполнения работы.
+                using (var reader = select_command.ExecuteReader(CommandBehavior.Default))  //Или поумолчанию.
                 {
 
                 }
