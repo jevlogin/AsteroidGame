@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -31,13 +32,34 @@ namespace ADONETTestingApp
             ExecuteScalar(connection_string);
         }
 
+        private static string __SqlCountPeoples = @"SELECT COUNT(*) FROM [dbo].[People]";
+
         private static void ExecuteScalar(string ConnectionString)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();  //  Создали подключение и открыли его
 
+                var count_command = new SqlCommand(__SqlCountPeoples, connection);
+                if (!(count_command.ExecuteScalar() is int count))
+                {
+                    throw new InvalidOperationException("Ошибка результата команды - не является числом");
+                }
+            }
+        }
 
+        private const string __SqlSelectFromPeople = @"SELECT * FROM [dbo].[People]";
+        private static void ExecuteReader(string ConnectionString)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var select_command = new SqlCommand(__SqlSelectFromPeople, connection);
+                using (var reader = select_command.ExecuteReader(CommandBehavior.CloseConnection))  //Заставляем закрыть ДАТАРЕАДЕР после прочтения, выполнения работы.
+                {
+
+                }
             }
         }
 
