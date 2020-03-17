@@ -58,7 +58,7 @@ namespace ADONETTestingApp
                 var select_command = new SqlCommand(__SqlSelectFromPeople, connection);
                 using (var reader = select_command.ExecuteReader(CommandBehavior.Default))  //Или поумолчанию.
                 {
-
+                    2,05,23
                 }
             }
         }
