@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -25,7 +26,19 @@ namespace ADONETTestingApp
 
             var connection_string = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            ExecuteNonQuery(connection_string);
+            //ExecuteNonQuery(connection_string);
+
+            ExecuteScalar(connection_string);
+        }
+
+        private static void ExecuteScalar(string ConnectionString)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();  //  Создали подключение и открыли его
+
+
+            }
         }
 
         private const string __SqlCreateTable = @"CREATE TABLE[dbo].[People]
@@ -60,5 +73,7 @@ namespace ADONETTestingApp
             }
 
         }
+
+
     }
 }
