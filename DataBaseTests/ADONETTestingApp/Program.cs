@@ -28,18 +28,16 @@ namespace ADONETTestingApp
             var connection_string = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             //ExecuteNonQuery(connection_string);
-
             //ExecuteScalar(connection_string);
 
             ExecuteReader(connection_string);
-
             ParametricQuery(connection_string);
             DataAdapterTest(connection_string);
 
             Console.ReadKey();
         }
 
-        
+
 
         private static string __SqlCountPeoples = @"SELECT COUNT(*) FROM [dbo].[People]";
 
@@ -67,7 +65,7 @@ namespace ADONETTestingApp
                 var select_command = new SqlCommand(__SqlSelectFromPeople, connection);
                 using (var reader = select_command.ExecuteReader(CommandBehavior.Default))  //Или поумолчанию.
                 {
-                    
+
                     if (reader.HasRows)
                     {
                         while (reader.Read())
@@ -151,7 +149,6 @@ namespace ADONETTestingApp
                 //var table = new DataTable();    //отсоединенный уровень данных
                 //adapter.Fill(table);
 
-
                 var data_set = new DataSet();    //отсоединенный уровень данных
                 adapter.Fill(data_set);
 
@@ -167,15 +164,15 @@ namespace ADONETTestingApp
             using (var connection = new SqlConnection(Connection_string))
             {
                 var adapter = new SqlDataAdapter("SELECT * FROM People; SELECT * FROM Departament", connection);
-                var insert_command = new SqlCommand(@"INSERT INTO People (Name,Birthday,Email,Phone) VALUES (@Name,@Birthday,@Email,@Phone); SET @ID=@@INDENTITY", connection)
-                { 
+                var insert_command = new SqlCommand(@"INSERT INTO People (Name,Birthday,Email,Phone) VALUES (@Name,@Birthday,@Email,@Phone); SET @ID = @@IDENTITY;", connection)
+                {
                     Parameters =
                     {
                         {"@Name", SqlDbType.NVarChar, -1, "Name" },
                         {"@Birthday", SqlDbType.NVarChar, -1, "Birthday" },
                         {"@Email", SqlDbType.NVarChar, 100, "Email" },
                         {"@Phone", SqlDbType.NVarChar, -1, "Phone" },
-                        {"@ID", SqlDbType.Int, 0, "ID" }
+                        {"@ID", SqlDbType.Int, 0, "ID" },
                     }
                 };
                 insert_command.Parameters["@ID"].Direction = ParameterDirection.Output;
@@ -186,22 +183,36 @@ namespace ADONETTestingApp
                     {
                         {"@Name", SqlDbType.NVarChar, -1, "Name" },
                         {"@Birthday", SqlDbType.NVarChar, -1, "Birthday" },
-                        {"@ID", SqlDbType.Int, 0, "ID" }
+                        {"@ID", SqlDbType.Int, 0, "ID" },
                     }
                 };
                 adapter.UpdateCommand.Parameters["@ID"].Direction = ParameterDirection.Output;
-
                 adapter.DeleteCommand = new SqlCommand(@"DELETE FROM People WHERE ID=@ID", connection)
                 {
                     Parameters =
                     {
-                        {"@ID", SqlDbType.Int, 0, "ID" }
+                        {"@ID", SqlDbType.Int, 0, "ID" },
                     }
                 };
                 adapter.DeleteCommand.Parameters["@ID"].Direction = ParameterDirection.Output;
+                var data_set = new DataSet();
+                adapter.Fill(data_set);
+
+                var table = data_set.Tables[0];
+                var row = table.NewRow();
+                row["Name"] = "Петров Петр Петрович";
+                row["Birthday"] = "24.04.2017";
+                table.Rows.Add(row);
+                adapter.Update(data_set);     //вот так не работает
+
+                var adapter2 = new SqlDataAdapter("SELECT * FROM People", connection);
+                var builder = new SqlCommandBuilder(adapter2);
+                adapter2.InsertCommand = builder.GetInsertCommand();
+                adapter2.DeleteCommand = builder.GetDeleteCommand();
+                adapter2.UpdateCommand = builder.GetUpdateCommand();
+
 
             }
-
-
         }
+    }
 }
