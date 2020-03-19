@@ -33,8 +33,13 @@ namespace ADONETTestingApp
 
             ExecuteReader(connection_string);
 
+            ParametricQuery(connection_string);
+            DataAdapterTest(connection_string);
+
             Console.ReadKey();
         }
+
+        
 
         private static string __SqlCountPeoples = @"SELECT COUNT(*) FROM [dbo].[People]";
 
@@ -110,6 +115,42 @@ namespace ADONETTestingApp
                 insert_data_command.ExecuteNonQuery();
             }
 
+        }
+
+        private const string __SqlSelectWithFilter = @"SELECT COUNT(*) FROM [dbo].[People] WHERE {0}";
+
+        private static void ParametricQuery(string ConnectionString)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var select_command = new SqlCommand(string.Format(__SqlSelectWithFilter, "BirthDay=@BirthDay"), connection);
+
+                var birthday = new SqlParameter(
+                    "@BirthDay",
+                    SqlDbType.NVarChar,
+                    -1);
+
+                select_command.Parameters.Add(birthday);
+
+                birthday.Value = "20.10.2001";
+
+                var count = (int)select_command.ExecuteScalar();
+
+                Console.WriteLine(count);
+            }
+        }
+
+        private static void DataAdapterTest(string Connection_string)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                //connection.Open();    открывать тут уже не обязательно. ДАта адаптер сделает это за нас.
+
+                
+                Console.WriteLine(count);
+            }
         }
 
 
