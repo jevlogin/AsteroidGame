@@ -29,7 +29,11 @@ namespace ADONETTestingApp
 
             //ExecuteNonQuery(connection_string);
 
-            ExecuteScalar(connection_string);
+            //ExecuteScalar(connection_string);
+
+            ExecuteReader(connection_string);
+
+            Console.ReadKey();
         }
 
         private static string __SqlCountPeoples = @"SELECT COUNT(*) FROM [dbo].[People]";
@@ -58,7 +62,19 @@ namespace ADONETTestingApp
                 var select_command = new SqlCommand(__SqlSelectFromPeople, connection);
                 using (var reader = select_command.ExecuteReader(CommandBehavior.Default))  //Или поумолчанию.
                 {
-                    2,05,23
+                    
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var id = (int)reader.GetValue(0);
+                            var name = reader.GetString(1);
+                            var email = reader["Email"] as string;
+                            var phone = reader.GetString(reader.GetOrdinal("Phone"));
+
+                            Console.WriteLine($"id: {id}\tname: {name}\temail: {email}\tphone: {phone}");
+                        }
+                    }
                 }
             }
         }
