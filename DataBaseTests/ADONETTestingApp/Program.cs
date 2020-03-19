@@ -163,8 +163,45 @@ namespace ADONETTestingApp
                     Console.WriteLine(people["Name"]);
                 }
             }
+
+            using (var connection = new SqlConnection(Connection_string))
+            {
+                var adapter = new SqlDataAdapter("SELECT * FROM People; SELECT * FROM Departament", connection);
+                var insert_command = new SqlCommand(@"INSERT INTO People (Name,Birthday,Email,Phone) VALUES (@Name,@Birthday,@Email,@Phone); SET @ID=@@INDENTITY", connection)
+                { 
+                    Parameters =
+                    {
+                        {"@Name", SqlDbType.NVarChar, -1, "Name" },
+                        {"@Birthday", SqlDbType.NVarChar, -1, "Birthday" },
+                        {"@Email", SqlDbType.NVarChar, 100, "Email" },
+                        {"@Phone", SqlDbType.NVarChar, -1, "Phone" },
+                        {"@ID", SqlDbType.Int, 0, "ID" }
+                    }
+                };
+                insert_command.Parameters["@ID"].Direction = ParameterDirection.Output;
+                adapter.InsertCommand = insert_command;
+                adapter.UpdateCommand = new SqlCommand(@"UPDATE People SET Name=@Name, Birthday=@Birthday, WHERE ID=@ID", connection)
+                {
+                    Parameters =
+                    {
+                        {"@Name", SqlDbType.NVarChar, -1, "Name" },
+                        {"@Birthday", SqlDbType.NVarChar, -1, "Birthday" },
+                        {"@ID", SqlDbType.Int, 0, "ID" }
+                    }
+                };
+                adapter.UpdateCommand.Parameters["@ID"].Direction = ParameterDirection.Output;
+
+                adapter.DeleteCommand = new SqlCommand(@"DELETE FROM People WHERE ID=@ID", connection)
+                {
+                    Parameters =
+                    {
+                        {"@ID", SqlDbType.Int, 0, "ID" }
+                    }
+                };
+                adapter.DeleteCommand.Parameters["@ID"].Direction = ParameterDirection.Output;
+
+            }
+
+
         }
-
-
-    }
 }
