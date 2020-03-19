@@ -147,12 +147,21 @@ namespace ADONETTestingApp
             using (var connection = new SqlConnection(Connection_string))
             {
                 //connection.Open();    открывать тут уже не обязательно. ДАта адаптер сделает это за нас.
-                var adapter = new SqlDataAdapter("SELECT * FROM People", connection);
+                var adapter = new SqlDataAdapter("SELECT * FROM People; SELECT * FROM Departament", connection);
+                //var table = new DataTable();    //отсоединенный уровень данных
+                //adapter.Fill(table);
 
-                var table = new DataTable();    //отсоединенный уровень данных
 
-                adapter.Fill(table);
-                
+                var data_set = new DataSet();    //отсоединенный уровень данных
+                adapter.Fill(data_set);
+
+                var peoples = data_set.Tables[0];
+                var departaments = data_set.Tables[1];
+
+                foreach (DataRow people in peoples.Rows)
+                {
+                    Console.WriteLine(people["Name"]);
+                }
             }
         }
 
