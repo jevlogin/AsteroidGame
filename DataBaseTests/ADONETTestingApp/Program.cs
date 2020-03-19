@@ -144,12 +144,17 @@ namespace ADONETTestingApp
 
         private static void DataAdapterTest(string Connection_string)
         {
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(Connection_string))
             {
                 //connection.Open();    открывать тут уже не обязательно. ДАта адаптер сделает это за нас.
+                var adapter = new SqlDataAdapter();
 
+                adapter.SelectCommand = new SqlCommand("SELECT * FROM People"); //  Select извлекает данные
+
+                var table = new DataTable();
                 
-                Console.WriteLine(count);
+                
+                Console.WriteLine();
             }
         }
 
