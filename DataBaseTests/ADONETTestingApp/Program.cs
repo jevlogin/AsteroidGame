@@ -149,12 +149,12 @@ namespace ADONETTestingApp
                 //connection.Open();    открывать тут уже не обязательно. ДАта адаптер сделает это за нас.
                 var adapter = new SqlDataAdapter();
 
-                adapter.SelectCommand = new SqlCommand("SELECT * FROM People"); //  Select извлекает данные
+                adapter.SelectCommand = new SqlCommand("SELECT * FROM People", connection); //  Select извлекает данные
 
-                var table = new DataTable();
+                var table = new DataTable();    //отсоединенный уровень данных
+
+                adapter.Fill(table);
                 
-                
-                Console.WriteLine();
             }
         }
 
