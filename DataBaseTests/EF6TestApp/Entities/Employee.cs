@@ -13,7 +13,6 @@ namespace EF6TestApp.Entities
         public string Name { get; set; }
         public DateTime DayOfBirth { get; set; }
         public string Description { get; set; }
-
         public virtual Departament Departament { get; set; }
     }
 }
