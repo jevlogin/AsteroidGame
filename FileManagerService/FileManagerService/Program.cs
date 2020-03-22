@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 
 namespace FileManagerService
 {
@@ -32,6 +33,12 @@ namespace FileManagerService
                 "net.pipe://localhost/FileService"
                 );
 
+            host.Description.Behaviors.Add(new ServiceMetadataBehavior());
+
+            const string mex_address = "mex";
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexHttpBinding(), mex_address);
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexTcpBinding(), mex_address);
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), mex_address);
 
             host.Open();
 

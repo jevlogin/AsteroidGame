@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagerService", "FileM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagerService.Interfaces", "FileManagerService.Interfaces\FileManagerService.Interfaces.csproj", "{D4A8DBEA-C946-404F-BB11-FB35B0749859}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{4EF3D7AF-B5C7-4455-99F4-D58718B303CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.FrameworkClient", "Clients\FileService.FrameworkClient\FileService.FrameworkClient.csproj", "{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{D4A8DBEA-C946-404F-BB11-FB35B0749859}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A8DBEA-C946-404F-BB11-FB35B0749859}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A8DBEA-C946-404F-BB11-FB35B0749859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9057E5AC-44EA-49E4-9C88-C2AFDD03F7CE} = {4EF3D7AF-B5C7-4455-99F4-D58718B303CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C02B245C-CE75-4D87-83B0-DF20F53B12B8}
