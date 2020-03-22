@@ -1,4 +1,5 @@
 ﻿using FileManagerService.Interfaces.DataItems;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
@@ -8,6 +9,9 @@ namespace FileManagerService
     [ServiceContract]
     public interface IFileService
     {
+        [OperationContract]
+        DateTime GetServiceTime();
+
         [OperationContract/*(Name = "Drives", IsInitiating =true, IsOneWay =true, IsTerminating =false)*/]
         DriveInfo[] GetDrives();
 

@@ -22,5 +22,7 @@ namespace FileManagerService.Services
         public DriveInfo[] GetDrives() => DriveInfo.GetDrives();
 
         public FileInfo[] GetFiles(string Path) => new DirectoryInfo(Path).GetFiles();
+
+        public DateTime GetServiceTime() => DateTime.Now;
     }
 }
