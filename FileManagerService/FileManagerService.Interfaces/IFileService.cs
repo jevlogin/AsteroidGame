@@ -17,6 +17,9 @@ namespace FileManagerService
         [OperationContract]
         DirectoryInfo[] GetDirectories(string Path);
 
+        //[OperationContract(IsOneWay = true, IsTerminating = true)]
+        //void Disconnect();
+
         //[OperationContract]
         //IEnumerable<EmployeesData> GetEmployees();
 
