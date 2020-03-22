@@ -14,6 +14,18 @@ namespace FileManagerService
                 );
 
             //host.AddDefaultEndpoints(); //  упрощенный вид конфигурации
+
+            host.AddServiceEndpoint(
+                typeof(IFileService),
+                new BasicHttpBinding(),
+                "http://localhost:8080/FileService"
+                );
+            host.AddServiceEndpoint(
+                typeof(IFileService),
+                new NetTcpBinding(),
+                "net.tcp://localhost/FileService"
+                );
+
             host.AddServiceEndpoint(
                 typeof(IFileService),
                 new NetNamedPipeBinding(),
