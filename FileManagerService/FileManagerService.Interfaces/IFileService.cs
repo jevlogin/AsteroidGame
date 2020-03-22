@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using FileManagerService.Interfaces.DataItems;
+using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 
 namespace FileManagerService
@@ -14,5 +16,11 @@ namespace FileManagerService
 
         [OperationContract]
         DirectoryInfo[] GetDirectories(string Path);
+
+        //[OperationContract]
+        //IEnumerable<EmployeesData> GetEmployees();
+
+        //[OperationContract(IsOneWay = true)]
+        //void AddEmployee(EmployeesData Employee);
     }
 }

@@ -8,8 +8,14 @@ namespace FileManagerService.Interfaces.DataItems
     {
         [DataMember]
         public int Id { get; set; }
+
+        [DataMember]
         public string Name { get; set; }
+
+        [DataMember]
         public DateTime BirthDay { get; set; }
+
+        [DataMember]
         public int DepartamentId { get; set; }
     }
 }
