@@ -13,7 +13,13 @@ namespace FileManagerService
                 new Uri("net.pipe://localhost/FileService")
                 );
 
-            host.AddDefaultEndpoints(); //  упрощенный вид конфигурации
+            //host.AddDefaultEndpoints(); //  упрощенный вид конфигурации
+            host.AddServiceEndpoint(
+                typeof(IFileService),
+                new NetNamedPipeBinding(),
+                "net.pipe://localhost/FileService"
+                );
+
 
             host.Open();
 
